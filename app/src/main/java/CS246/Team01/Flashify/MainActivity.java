@@ -22,12 +22,11 @@ public class MainActivity extends AppCompatActivity {
         flashCardMap = NewFlashCard.getFlasCardList();
     }
 
-    /*This method will call the createFlashCard activity when the user taps
-     the "Add Flash Card" button*/
+    /* This method will call the createFlashCard activity when the user taps the
+     * "Add Flash Card" button*/
     public void newFlashCardView(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
         startActivity(intent);
     }
-
 }
