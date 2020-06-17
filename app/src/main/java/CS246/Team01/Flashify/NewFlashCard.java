@@ -12,12 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class NewFlashCard extends AppCompatActivity {
 
     //This map will contain a List of all flash cards by category
-    private static Map<String, ArrayList<FlashCard>> flashCardList;
+    private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class NewFlashCard extends AppCompatActivity {
             flashCardList.get(topic).add(flashCard);
         }
 
-        //Convert the flash Card into a Json file and save it to the device's memory
+        // TODO Convert the flash Card into a Json file and save it to the device's memory
     }
 
     static Map<String, ArrayList<FlashCard>> getFlasCardList(){
