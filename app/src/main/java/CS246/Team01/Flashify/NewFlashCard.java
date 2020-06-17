@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,6 +86,8 @@ public class NewFlashCard extends AppCompatActivity {
             flashCardList.put(topic, list);
             flashCardList.get(topic).add(flashCard);
         }
+        Toast toast = Toast.makeText(getApplicationContext(),"Flash Card Saved Succesfully", Toast.LENGTH_SHORT);
+        toast.show();
 
         // TODO Convert the flash Card into a Json file and save it to the device's memory
     }
