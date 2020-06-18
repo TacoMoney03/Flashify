@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Create a list to populate the ListView menu
         List<String> menuItemsExample = new ArrayList<>();
         // Add a few strings to the List
-        menuItemsExample.add("String 1");
+        menuItemsExample.add("Make your first flashcard by clicking the add button below");
         menuItemsExample.add("String 2");
         menuItemsExample.add("String 3");
         menuItemsExample.add("String 4");
