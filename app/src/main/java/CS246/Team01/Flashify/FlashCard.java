@@ -2,7 +2,12 @@
 //This class will contain the actual Flash Card
 package CS246.Team01.Flashify;
 
-public class FlashCard {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+// The FlashCard class needs to implement "Parcelable" so the main activity can pass it
+// to TopicActivity
+public class FlashCard implements Parcelable {
     private String _topic;
     private String _front;
     private  String _back;
@@ -13,6 +18,37 @@ public class FlashCard {
         _back = back;
     }
 
+    protected FlashCard(Parcel in) {
+        _topic = in.readString();
+        _front = in.readString();
+        _back = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_topic);
+        dest.writeString(_front);
+        dest.writeString(_back);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<FlashCard> CREATOR = new Creator<FlashCard>() {
+        @Override
+        public FlashCard createFromParcel(Parcel in) {
+            return new FlashCard(in);
+        }
+
+        @Override
+        public FlashCard[] newArray(int size) {
+            return new FlashCard[size];
+        }
+    };
+
+    // Parcelable class implementation
     public String get_topic() {
         return _topic;
     }

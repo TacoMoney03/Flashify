@@ -37,8 +37,12 @@ public class MainActivity extends AppCompatActivity {
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO add on row click functionality
-            }
+                //Get the object tapped by the user
+                Object topicItem = menu.getItemAtPosition(position);
+
+                // Call the new topic activity creating function passing the element tapped
+                newTopicView(topicItem.toString());
+          }
         });
     }
 
@@ -63,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
     public void newFlashCardView(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
+        startActivity(intent);
+    }
+
+    public void newTopicView(String topic){
+        // Get the flashcards list corresponding to the topic
+        ArrayList<FlashCard> topicFlashcards = flashCardMap.get(topic);
+
+        //Create intent
+        Intent intent = new Intent (this, TopicActivity.class);
+        //Passes the topic to the new intent
+        intent.putExtra("TOPIC", topic);
+        // Passes the list of flashcards corresponding to that topic to the new intent
+        intent.putParcelableArrayListExtra("LIST", topicFlashcards);
         startActivity(intent);
     }
 }

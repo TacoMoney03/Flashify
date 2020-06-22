@@ -3,20 +3,26 @@
 package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NewFlashCard extends AppCompatActivity {
+
+    public static final String TOPIC = "com.example.favoritescripture.TOPIC";
+    public static final String FRONT = "com.example.favoritescripture.FRONT";
+    public static final String BACK = "com.example.favoritescripture.BACK";
+    private static final String TAG = "NewFlashCard";
 
     //This map will contain a List of all flash cards by category
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
@@ -89,6 +95,33 @@ public class NewFlashCard extends AppCompatActivity {
         toast.show();
 
         // TODO Convert the flash Card into a Json file and save it to the device's memory
+
+        TextView clearTopic = findViewById(R.id.topicText);
+        TextView clearFront = findViewById(R.id.frontText);
+        TextView ClearBack = findViewById(R.id.backText);
+        clearTopic.setText("");
+        clearFront.setText("");
+        ClearBack.setText("");
+    }
+
+    //Called when the user taps on the Display Scripture button
+    public void displayScripture(View view){
+
+        //Convert the text from the Plain Text box to a String
+        EditText enterTopic = (EditText) findViewById(R.id.topicText);
+        EditText enterFront = (EditText) findViewById(R.id.frontText);
+        EditText enterBack = (EditText) findViewById(R.id.backText);
+
+        //Display a Debug Logging message
+        Log.d(TAG, "========================= About to create intent with " + enterTopic.getText().toString() + " " +
+                enterFront.getText().toString() + ":" + enterBack.getText().toString());
+        //Create intent
+        Intent intent = new Intent (this, DisplayFlashCard.class);
+        intent.putExtra(TOPIC, enterTopic.getText().toString());
+        intent.putExtra(FRONT, enterFront.getText().toString());
+        intent.putExtra(BACK, enterBack.getText().toString());
+
+        startActivity(intent);
     }
 
     static Map<String, ArrayList<FlashCard>> getFlasCardList(){
