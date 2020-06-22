@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".DisplayFlashCard">
 
+    <TextView
+        android:id="@+id/frontTextView"
+        android:layout_width="364dp"
+        android:layout_height="508dp"
+        android:clickable="true"
+        android:fontFamily="casual"
+        android:onClick="perform_action"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#E91E63"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/backTextView"
+        android:layout_width="365dp"
+        android:layout_height="508dp"
+        android:clickable="true"
+        android:fontFamily="casual"
+        android:onClick="perform_action"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#00BCD4"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
