@@ -2,7 +2,9 @@ package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +22,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap;
+    //private static final String mypreference = "mypref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,24 @@ public class MainActivity extends AppCompatActivity {
 
         // Main will obtain the list from NewFlashCard activity
         flashCardMap = NewFlashCard.getFlasCardList();
+
+        /*Load Flash Card list from memory
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("flashCards.dat"));
+
+            flashCardMap = (Map<String, ArrayList<FlashCard>>)ois.readObject();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        Iterator iterator = flashCardMap.keySet().iterator();
+
+        while(iterator.hasNext()){
+            Object key = iterator.next();
+
+            topicsMenu.add(key.toString());
+        }*/
 
         // Create a simple adapter to put the list into the list view
         menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));

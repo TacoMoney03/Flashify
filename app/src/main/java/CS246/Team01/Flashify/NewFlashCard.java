@@ -3,7 +3,10 @@
 package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +29,7 @@ public class NewFlashCard extends AppCompatActivity {
     public static final String FRONT = "com.example.favoritescripture.FRONT";
     public static final String BACK = "com.example.favoritescripture.BACK";
     private static final String TAG = "NewFlashCard";
+    private static final String mypreference = "mypref";
 
     //This map will contain a List of all flash cards by category
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
@@ -79,7 +86,7 @@ public class NewFlashCard extends AppCompatActivity {
 
         FlashCard flashCard = new FlashCard(topic, front, back);
 
-        /*If there is already a list with the topic then the flash Card will be added to that list,
+         /*If there is already a list with the topic then the flash Card will be added to that list,
         if not, a new list with that topic's name will be created and the current flash card
         will be added to the new list
         */
@@ -94,8 +101,18 @@ public class NewFlashCard extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(),"Flash Card Saved Succesfully", Toast.LENGTH_SHORT);
         toast.show();
 
-        // TODO Convert the flash Card into a Json file and save it to the device's memory
+        try{
+            FileOutputStream out = new FileOutputStream("flashCards.dat");
+            ObjectOutputStream oout = new ObjectOutputStream(out);
 
+            // write the whole flashcard map in the file
+            oout.writeObject(flashCardList);
+            oout.flush();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //Clear Flash Card once saved.
         TextView clearTopic = findViewById(R.id.topicText);
         TextView clearFront = findViewById(R.id.frontText);
         TextView ClearBack = findViewById(R.id.backText);
