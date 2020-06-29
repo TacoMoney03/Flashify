@@ -3,21 +3,17 @@
 package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,13 +21,8 @@ import java.util.Map;
 
 public class NewFlashCard extends AppCompatActivity {
 
-    public static final String TOPIC = "com.example.favoritescripture.TOPIC";
-    public static final String FRONT = "com.example.favoritescripture.FRONT";
-    public static final String BACK = "com.example.favoritescripture.BACK";
-    private static final String TAG = "NewFlashCard";
-    private static final String mypreference = "mypref";
-
-    //This map will contain a List of all flash cards by category
+    /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
+    pass a reference to the map in main without a pointer. This has room for improvement*/
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
 
     @Override
@@ -42,7 +33,7 @@ public class NewFlashCard extends AppCompatActivity {
     /* Every Flash Card must have a topic in order to be saved. This activity will begin with a
     disabled SAVE button. Once there is a topic, the SAVE button will be enabled.
      */
-        EditText topicText = (EditText) findViewById(R.id.topicText);
+        EditText topicText = findViewById(R.id.topicText);
         final Button saveButton = (Button) findViewById(R.id.saveButton);
 
         /* A TextWatcher is created in onCreate. This text watcher will listen to the
@@ -74,19 +65,19 @@ public class NewFlashCard extends AppCompatActivity {
     }
 
 
-    /*This method will be called in the create flash Card screen when the user taps on the SAVE
+    /* This method will be called in the create flash Card screen when the user taps on the SAVE
     button and will store the user's data input in the device as a Json file*/
     public void saveFlashCard(View view){
-        EditText topicText = (EditText) findViewById(R.id.topicText);
+        EditText topicText = findViewById(R.id.topicText);
         String topic = topicText.getText().toString();
-        EditText frontText = (EditText) findViewById(R.id.frontText);
+        EditText frontText = findViewById(R.id.frontText);
         String front = frontText.getText().toString();
-        EditText backText = (EditText) findViewById(R.id.backText);
+        EditText backText = findViewById(R.id.backText);
         String back = backText.getText().toString();
 
         FlashCard flashCard = new FlashCard(topic, front, back);
 
-         /*If there is already a list with the topic then the flash Card will be added to that list,
+         /* If there is already a list with the topic then the flash Card will be added to that list,
         if not, a new list with that topic's name will be created and the current flash card
         will be added to the new list
         */
@@ -98,21 +89,41 @@ public class NewFlashCard extends AppCompatActivity {
             flashCardList.put(topic, list);
             flashCardList.get(topic).add(flashCard);
         }
-        Toast toast = Toast.makeText(getApplicationContext(),"Flash Card Saved Succesfully", Toast.LENGTH_SHORT);
-        toast.show();
 
-        try{
-            FileOutputStream out = new FileOutputStream("flashCards.dat");
-            ObjectOutputStream oout = new ObjectOutputStream(out);
+        String saveMessage = "";
 
-            // write the whole flashcard map in the file
-            oout.writeObject(flashCardList);
-            oout.flush();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        try {
+            // Creates a file in the application path obtained from the application context
+            // Android takes care of the context
+            File file = new File(this.getBaseContext().getFilesDir(),"flashCards.dat");
+
+            //Create a new file
+            file.createNewFile();
+
+            try{
+                FileOutputStream out = new FileOutputStream(file, false);
+                ObjectOutputStream oout = new ObjectOutputStream(out);
+
+                // Write the whole flashcard map in the file
+                oout.writeObject(flashCardList);
+                oout.flush();
+
+                saveMessage = "Flash Card Saved Successfully";
+            } catch (Exception ex) {
+                saveMessage = "Error Saving Flash Card!";
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            saveMessage = "Error Saving Flash Card!";
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
-        //Clear Flash Card once saved.
+        // The toast will let you know whether the saved was successful or not.
+        Toast toast = Toast.makeText(getApplicationContext(),saveMessage , Toast.LENGTH_SHORT);
+        toast.show();
+
+        //Clear Flash Card fields once the data is saved.
         TextView clearTopic = findViewById(R.id.topicText);
         TextView clearFront = findViewById(R.id.frontText);
         TextView ClearBack = findViewById(R.id.backText);
@@ -121,27 +132,8 @@ public class NewFlashCard extends AppCompatActivity {
         ClearBack.setText("");
     }
 
-    //Called when the user taps on the Display Scripture button
-    public void displayScripture(View view){
-
-        //Convert the text from the Plain Text box to a String
-        EditText enterTopic = (EditText) findViewById(R.id.topicText);
-        EditText enterFront = (EditText) findViewById(R.id.frontText);
-        EditText enterBack = (EditText) findViewById(R.id.backText);
-
-        //Display a Debug Logging message
-        Log.d(TAG, "========================= About to create intent with " + enterTopic.getText().toString() + " " +
-                enterFront.getText().toString() + ":" + enterBack.getText().toString());
-        //Create intent
-        Intent intent = new Intent (this, DisplayFlashCard.class);
-        intent.putExtra(TOPIC, enterTopic.getText().toString());
-        intent.putExtra(FRONT, enterFront.getText().toString());
-        intent.putExtra(BACK, enterBack.getText().toString());
-
-        startActivity(intent);
-    }
-
-    static Map<String, ArrayList<FlashCard>> getFlasCardList(){
-        return flashCardList;
+    //Map is received from the Main Activity
+    static void setFlasCardList(Map<String, ArrayList<FlashCard>> list){
+        flashCardList = list;
     }
 }

@@ -2,27 +2,24 @@ package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menu;
-    private Map<String, ArrayList<FlashCard>> flashCardMap;
-    //private static final String mypreference = "mypref";
+    private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<String, ArrayList<FlashCard>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +28,51 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> topicsMenu = new ArrayList<>();
 
         // find the menu, set it to variable named menu
-        menu = (ListView) findViewById(R.id.menu);
-
-        // Main will obtain the list from NewFlashCard activity
-        flashCardMap = NewFlashCard.getFlasCardList();
-
-        /*Load Flash Card list from memory
+        menu = findViewById(R.id.menu);
 
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("flashCards.dat"));
+            //Load Flash Card list from memory
+            File file = new File(this.getBaseContext().getFilesDir(), "flashCards.dat");
+            // Check whether the file can be read or not
+            if (file.canRead()) {
+                try {
+                    // A fileInputStream is necessary to read the file
+                    FileInputStream in = new FileInputStream(file);
 
-            flashCardMap = (Map<String, ArrayList<FlashCard>>)ois.readObject();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+                    // In order to read the file an ObjectInputStream is also necessary because the file contents an object (the map).
+                    ObjectInputStream ois = new ObjectInputStream(in);
+
+                    flashCardMap = (Map<String, ArrayList<FlashCard>>) ois.readObject();
+
+                    /* Main passes the map to NewFlashCard so it has all the elements
+                     restored from memory.*/
+                    NewFlashCard.setFlasCardList(flashCardMap);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                // Creates an iterator to go through all the keys.
+                Iterator iterator = flashCardMap.keySet().iterator();
+
+                // Go trough all the keys
+                while (iterator.hasNext()) {
+                    Object key = iterator.next();
+                    topicsMenu.add(key.toString());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
-
-        Iterator iterator = flashCardMap.keySet().iterator();
-
-        while(iterator.hasNext()){
-            Object key = iterator.next();
-
-            topicsMenu.add(key.toString());
-        }*/
 
         // Create a simple adapter to put the list into the list view
         menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));
+
         // Set the click listener for the list view
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 //Get the object tapped by the user
                 Object topicItem = menu.getItemAtPosition(position);
 
@@ -73,12 +86,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Iterator iterator = flashCardMap.keySet().iterator();
-        ArrayList<String> topicsMenu = new ArrayList<>();
+        Iterator iterator = flashCardMap.keySet().iterator(); // New Iterator
+        ArrayList<String> topicsMenu = new ArrayList<>(); // New topic list (So it won't create duplicates)
 
         while(iterator.hasNext()){
             Object key = iterator.next();
-
             topicsMenu.add(key.toString());
         }
 
@@ -99,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Create intent
         Intent intent = new Intent (this, TopicActivity.class);
+
         //Passes the topic to the new intent
         intent.putExtra("TOPIC", topic);
+
         // Passes the list of flashcards corresponding to that topic to the new intent
         intent.putParcelableArrayListExtra("LIST", topicFlashcards);
         startActivity(intent);

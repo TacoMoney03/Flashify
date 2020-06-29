@@ -4,11 +4,11 @@ package CS246.Team01.Flashify;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.google.gson.Gson;
+import java.io.Serializable;
 
 // The FlashCard class needs to implement "Parcelable" so the main activity can pass it
 // to TopicActivity
-public class FlashCard implements Parcelable {
+public class FlashCard implements Parcelable, Serializable {
     private String _topic;
     private String _front;
     private  String _back;
@@ -32,6 +32,7 @@ public class FlashCard implements Parcelable {
         dest.writeString(_back);
     }
 
+    // Parcelable class implementation
     @Override
     public int describeContents() {
         return 0;
@@ -49,7 +50,6 @@ public class FlashCard implements Parcelable {
         }
     };
 
-    // Parcelable class implementation
     public String get_topic() {
         return _topic;
     }
@@ -74,10 +74,11 @@ public class FlashCard implements Parcelable {
         this._back = _back;
     }
 
-    /*Method to convert the class into a JSON file
-    public String getJSON(){
-        Gson g = new Gson();
-        return g.toJson(this);
+    // Converts the Flash Card to text.
+    @Override
+    public String toString(){
+        return "[" + _topic + "," + _front + "," + _back + "]";
     }
-     */
+
+
 }

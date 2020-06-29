@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TopicActivity extends AppCompatActivity {
-    EditText frontText;
-    EditText backText;
     ListView frontsList;
     ArrayList<FlashCard> topicFlashcards;
 
@@ -55,9 +52,9 @@ public class TopicActivity extends AppCompatActivity {
 
     // method to call next activity to view flashcards
     public void viewCard(String front, String back) {
-        // create the intent
+        // Create the intent
         Intent intent = new Intent (this, DisplayFlashCard.class);
-        // pass all 4 strings into the intent
+        // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
         startActivity(intent);
