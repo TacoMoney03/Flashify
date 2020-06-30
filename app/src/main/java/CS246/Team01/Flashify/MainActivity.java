@@ -52,11 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // Creates an iterator to go through all the keys.
-                Iterator iterator = flashCardMap.keySet().iterator();
 
                 // Go trough all the keys
-                while (iterator.hasNext()) {
-                    Object key = iterator.next();
+                // Taylor changed from while to for each loop
+                for (Object key : flashCardMap.keySet()) {
                     topicsMenu.add(key.toString());
                 }
             }
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Iterator iterator = flashCardMap.keySet().iterator(); // New Iterator
+        Iterator<String> iterator = flashCardMap.keySet().iterator(); // New Iterator
         ArrayList<String> topicsMenu = new ArrayList<>(); // New topic list (So it won't create duplicates)
 
         while(iterator.hasNext()){

@@ -92,44 +92,42 @@ public class NewFlashCard extends AppCompatActivity {
 
         String saveMessage = "";
 
-        try {
-            // Creates a file in the application path obtained from the application context
-            // Android takes care of the context
-            File file = new File(this.getBaseContext().getFilesDir(),"flashCards.dat");
+        // Creates a file in the application path obtained from the application context
+        // Android takes care of the context
+        File file = new File(this.getBaseContext().getFilesDir(),"flashCards.dat");
 
-            //Create a new file
-            file.createNewFile();
+        //Create a new file
+        //file.createNewFile(); -- Taylor removed because this didn't actually do anything
 
-            try{
-                FileOutputStream out = new FileOutputStream(file, false);
-                ObjectOutputStream oout = new ObjectOutputStream(out);
+        try{
+            FileOutputStream out = new FileOutputStream(file, false);
+            ObjectOutputStream oout = new ObjectOutputStream(out);
 
-                // Write the whole flashcard map in the file
-                oout.writeObject(flashCardList);
-                oout.flush();
+            // Write the whole flashcard map in the file
+            oout.writeObject(flashCardList);
+            oout.flush();
 
-                saveMessage = "Flash Card Saved Successfully";
-            } catch (Exception ex) {
-                saveMessage = "Error Saving Flash Card!";
-                ex.printStackTrace();
-            }
-        } catch (IOException e) {
+            saveMessage = "Flash Card Saved Successfully";
+        } catch (Exception ex) {
             saveMessage = "Error Saving Flash Card!";
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            ex.printStackTrace();
         }
+
+        // Taylor removed catch block that was not necessary
 
         // The toast will let you know whether the saved was successful or not.
         Toast toast = Toast.makeText(getApplicationContext(),saveMessage , Toast.LENGTH_SHORT);
         toast.show();
 
         //Clear Flash Card fields once the data is saved.
-        TextView clearTopic = findViewById(R.id.topicText);
-        TextView clearFront = findViewById(R.id.frontText);
-        TextView ClearBack = findViewById(R.id.backText);
-        clearTopic.setText("");
-        clearFront.setText("");
-        ClearBack.setText("");
+        // Taylor commented this out - no need to look these values up again
+        //TextView clearTopic = findViewById(R.id.topicText);
+        //TextView clearFront = findViewById(R.id.frontText);
+        //TextView ClearBack = findViewById(R.id.backText);
+        // changed the variables to be the ones you previously found at the top of saveFlashcard
+        topicText.setText("");
+        frontText.setText("");
+        backText.setText("");
     }
 
     //Map is received from the Main Activity

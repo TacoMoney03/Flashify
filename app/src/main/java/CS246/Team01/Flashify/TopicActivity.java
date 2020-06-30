@@ -25,7 +25,8 @@ public class TopicActivity extends AppCompatActivity {
         String topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
         topicFlashcards = intent.getParcelableArrayListExtra("LIST");
 
-        TextView topicTitle = (TextView) findViewById(R.id.topicText);
+        // Taylor removed redundant cast
+        TextView topicTitle = findViewById(R.id.topicText);
         topicTitle.setText(topic); //Display the value from the previously selected "TOPIC" key
 
         // Create a list with all the flashcard fronts.
