@@ -73,24 +73,31 @@ public class DisplayFlashCard extends AppCompatActivity {
 
     public void nextCard(View view) {
 
-        System.out.println("Index: " + index + "Legnth: " + (topicFlashcards.size() - 1));
         if(!(index >= topicFlashcards.size() - 1 )) {
             ++index;
             setCardText();
-            System.out.println(index + "Made ++");
             backView.setVisibility(View.INVISIBLE);
             frontView.setVisibility(View.VISIBLE);
         } else {
-            System.out.println( index + "Made else");
             index = 0;
             setCardText();
-            System.out.println( index + "Made else");
             backView.setVisibility(View.INVISIBLE);
             frontView.setVisibility(View.VISIBLE);
         }
     }
 
     public void previousCard(View view) {
+        if(!(index <= 0 )) {
+            --index;
+            setCardText();
+            backView.setVisibility(View.INVISIBLE);
+            frontView.setVisibility(View.VISIBLE);
+        } else {
+            index = topicFlashcards.size() - 1;
+            setCardText();
+            backView.setVisibility(View.INVISIBLE);
+            frontView.setVisibility(View.VISIBLE);
+        }
 
     }
 }
