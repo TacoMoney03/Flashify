@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#263238"
     tools:context=".TopicActivity">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="TextView"
-        android:textColor="#121212"
+        android:textColor="#cfd8dc "
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +23,9 @@
         android:id="@+id/flashCardListView"
         android:layout_width="294dp"
         android:layout_height="554dp"
-        android:singleLine="true"
+        android:background="#263238"
         android:ellipsize="end"
+        android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.572"

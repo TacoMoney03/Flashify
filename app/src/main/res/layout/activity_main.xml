@@ -4,41 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#263238"
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
+        app:fabCustomSize="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="newFlashCardView"
-        app:backgroundTint="#673AB7"
+        android:src="@android:drawable/ic_menu_add"
+        app:backgroundTint="#546e7a "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.895"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintVertical_bias="0.896" />
 
     <TextView
         android:id="@+id/topicText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="14dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="20dp"
         android:text="ADD FLASH CARD"
+        android:textColor="#546e7a "
         android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
-        app:layout_constraintVertical_bias="0.196" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ListView
         android:id="@+id/menu"
         android:layout_width="309dp"
         android:layout_height="457dp"
+        android:background="#263238"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="Welcome To Flashify!"
-        android:textColor="#673AB7"
+        android:textColor="#cfd8dc"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,11 +68,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="casual"
-        android:text='To start, please tap on the "Add Flash Card" button'
+        android:fontFamily="sans-serif"
+        android:text="To start, add a flashcard below"
         android:textAlignment="center"
-        android:textColor="#673AB7"
-        android:textStyle="bold"
+        android:textColor="#cfd8dc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
