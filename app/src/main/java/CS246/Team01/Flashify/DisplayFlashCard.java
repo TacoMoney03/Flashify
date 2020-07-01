@@ -28,7 +28,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_flash_card);
         setCardText();
-
+        backView.setVisibility(View.INVISIBLE);
     }
 
     public void setCardText() {
@@ -54,7 +54,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         backView.setText(topicFlashcards.get(index).get_back());
 
         // set the back portion of the flashcard to be invisible on create
-        backView.setVisibility(View.INVISIBLE);
+        //backView.setVisibility(View.INVISIBLE);
     }
 
     // The .xml file is modified to use this view.
@@ -79,11 +79,15 @@ public class DisplayFlashCard extends AppCompatActivity {
             ++index;
             setCardText();
             System.out.println(index + "Made ++");
+            backView.setVisibility(View.INVISIBLE);
+            frontView.setVisibility(View.VISIBLE);
         } else {
             System.out.println( index + "Made else");
             index = 0;
             setCardText();
             System.out.println( index + "Made else");
+            backView.setVisibility(View.INVISIBLE);
+            frontView.setVisibility(View.VISIBLE);
         }
     }
 
