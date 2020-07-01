@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/frontTextView"
-        android:layout_width="364dp"
-        android:layout_height="508dp"
+        android:layout_width="298dp"
+        android:layout_height="217dp"
         android:clickable="true"
         android:fontFamily="casual"
         android:onClick="perform_action"
@@ -20,13 +20,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
 
     <TextView
         android:id="@+id/backTextView"
-        android:layout_width="365dp"
-        android:layout_height="508dp"
+        android:layout_width="298dp"
+        android:layout_height="216dp"
         android:clickable="true"
         android:fontFamily="casual"
         android:onClick="perform_action"
@@ -37,7 +39,42 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
+
+    <Button
+        android:id="@+id/nextCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="24dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/previousCard"
+        app:layout_constraintTop_toBottomOf="@+id/frontTextView" />
+
+    <Button
+        android:id="@+id/previousCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="88dp"
+        android:text="Previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frontTextView" />
+
+    <Button
+        android:id="@+id/deleteCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="Delete Card"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

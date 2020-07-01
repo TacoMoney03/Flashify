@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class DisplayFlashCard extends AppCompatActivity {
     // declare all variables
     private Intent _intent;
@@ -31,6 +33,10 @@ public class DisplayFlashCard extends AppCompatActivity {
         front = _intent.getStringExtra("FRONT");
         back = _intent.getStringExtra("BACK");
 
+        //Getting the list
+        ArrayList<FlashCard> topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+        System.out.println(topicFlashcards);
+
         // set the flashcard front to show "front" and the flashcard back to show "back"
         frontView.setText(front);
         backView.setText(back);
@@ -52,5 +58,6 @@ public class DisplayFlashCard extends AppCompatActivity {
             backView.setVisibility(View.VISIBLE);
             backView.setText(back);
         }
+
     }
 }
