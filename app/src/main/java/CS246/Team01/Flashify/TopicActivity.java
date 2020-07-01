@@ -55,6 +55,10 @@ public class TopicActivity extends AppCompatActivity {
     public void viewCard(String front, String back) {
         // Create the intent
         Intent intent = new Intent (this, DisplayFlashCard.class);
+
+        //pass the list
+        intent.putExtra("mylist", topicFlashcards);
+
         // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);

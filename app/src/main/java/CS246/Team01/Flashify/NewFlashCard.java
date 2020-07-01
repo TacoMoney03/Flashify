@@ -89,28 +89,12 @@ public class NewFlashCard extends AppCompatActivity {
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
         }
 
-        String saveMessage;
 
-        // Creates a file in the application path obtained from the application context
-        // Android takes care of the context
-        File file = new File(this.getBaseContext().getFilesDir(),"flashCards.dat");
 
-        //Create a new file
-        //file.createNewFile(); -- Taylor removed because this didn't actually do anything
+        //Call the static saing method to list
+        String saveMessage = saveToFile.writeToFile(this, flashCardList);
 
-        try{
-            FileOutputStream out = new FileOutputStream(file, false);
-            ObjectOutputStream oout = new ObjectOutputStream(out);
 
-            // Write the whole flashcard map in the file
-            oout.writeObject(flashCardList);
-            oout.flush();
-
-            saveMessage = "Flash Card Saved Successfully";
-        } catch (Exception ex) {
-            saveMessage = "Error Saving Flash Card!";
-            ex.printStackTrace();
-        }
 
         // Taylor removed catch block that was not necessary
 
