@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DisplayFlashCard extends AppCompatActivity {
     private String front;
@@ -44,9 +45,6 @@ public class DisplayFlashCard extends AppCompatActivity {
 
         //Getting the list
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
-        Log.i("LIST TESTING", "topicFlashcards.toString()");
-        Log.i("LIST TESTING", topicFlashcards.toString());
-        System.out.println(topicFlashcards);
 
         // set the flashcard front to show "front" and the flashcard back to show "back"
         frontView.setText(topicFlashcards.get(index).get_front());
@@ -99,5 +97,13 @@ public class DisplayFlashCard extends AppCompatActivity {
             frontView.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    //delete method for delete button - removes the object from the map for the current index
+    public void deleteCard(View view) {
+        topicFlashcards.remove(index);
+        nextCard(view);
+        // need to fix save function
+        //saveToFile.writeToFile(topicFlashcards);
     }
 }
