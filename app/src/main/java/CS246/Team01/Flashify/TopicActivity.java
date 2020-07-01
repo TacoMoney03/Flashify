@@ -59,5 +59,6 @@ public class TopicActivity extends AppCompatActivity {
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
         startActivity(intent);
+
     }
 }
