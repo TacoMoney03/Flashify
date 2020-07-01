@@ -51,6 +51,7 @@
         android:layout_marginStart="185dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="24dp"
+        android:onClick="nextCard"
         android:text="Next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -63,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="88dp"
+        android:onClick="previousCard"
         android:text="Previous"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frontTextView" />

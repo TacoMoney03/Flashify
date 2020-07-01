@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +36,8 @@ public class DisplayFlashCard extends AppCompatActivity {
 
         //Getting the list
         ArrayList<FlashCard> topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+        Log.i("LIST TESTING", "topicFlashcards.toString()");
+        Log.i("LIST TESTING", topicFlashcards.toString());
         System.out.println(topicFlashcards);
 
         // set the flashcard front to show "front" and the flashcard back to show "back"
@@ -58,6 +61,17 @@ public class DisplayFlashCard extends AppCompatActivity {
             backView.setVisibility(View.VISIBLE);
             backView.setText(back);
         }
+
+
+
+    }
+
+    public void nextCard(View view) {
+        frontView.setText("Front view test 1");
+        backView.setText("Back view test 1");
+    }
+
+    public void previousCard(View view) {
 
     }
 }
