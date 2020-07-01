@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 public class DisplayFlashCard extends AppCompatActivity {
-    // declare all variables
-    private Intent _intent;
     private String front;
     private String back;
     private TextView frontView;
@@ -25,7 +23,8 @@ public class DisplayFlashCard extends AppCompatActivity {
         backView = findViewById(R.id.backTextView);
 
         // get the intent
-        _intent = getIntent();
+        // declare all variables
+        Intent _intent = getIntent();
 
         // get the "front" and "back" strings into the attributes
         front = _intent.getStringExtra("FRONT");

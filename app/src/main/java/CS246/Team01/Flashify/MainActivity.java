@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menu;
-    private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<String, ArrayList<FlashCard>>();
+    private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

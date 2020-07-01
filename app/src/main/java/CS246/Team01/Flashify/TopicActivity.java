@@ -38,7 +38,7 @@ public class TopicActivity extends AppCompatActivity {
         }
 
         // Get the list view where the flashcards will be displayed
-        frontsList = (ListView) findViewById(R.id.flashCardListView);
+        frontsList = findViewById(R.id.flashCardListView);
         frontsList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, fronts));
 
         //Added to detect when the user selects a flashcard from the list

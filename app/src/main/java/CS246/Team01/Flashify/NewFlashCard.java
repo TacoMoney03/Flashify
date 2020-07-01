@@ -2,28 +2,27 @@
 // This class will create and save all new Flash Cards.
 package CS246.Team01.Flashify;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class NewFlashCard extends AppCompatActivity {
 
     /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
     pass a reference to the map in main without a pointer. This has room for improvement*/
-    private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
+    private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class NewFlashCard extends AppCompatActivity {
     disabled SAVE button. Once there is a topic, the SAVE button will be enabled.
      */
         EditText topicText = findViewById(R.id.topicText);
-        final Button saveButton = (Button) findViewById(R.id.saveButton);
+        final Button saveButton = findViewById(R.id.saveButton);
 
         /* A TextWatcher is created in onCreate. This text watcher will listen to the
         * text input and will enable or disable the save button if the text input has
@@ -82,15 +81,15 @@ public class NewFlashCard extends AppCompatActivity {
         will be added to the new list
         */
         if (flashCardList.containsKey(topic)){
-            flashCardList.get(topic).add(flashCard);
+            Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
         }
         else{
-            ArrayList<FlashCard> list = new ArrayList<FlashCard>();
+            ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
-            flashCardList.get(topic).add(flashCard);
+            Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
         }
 
-        String saveMessage = "";
+        String saveMessage;
 
         // Creates a file in the application path obtained from the application context
         // Android takes care of the context
