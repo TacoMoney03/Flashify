@@ -13,8 +13,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class DisplayFlashCard extends AppCompatActivity {
-    private String front;
-    private String back;
     private TextView frontView;
     private TextView backView;
 
@@ -36,14 +34,6 @@ public class DisplayFlashCard extends AppCompatActivity {
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
 
-        // get the intent
-        // declare all variables
-        Intent _intent = getIntent();
-
-        // get the "front" and "back" strings into the attributes
-        //front = _intent.getStringExtra("FRONT");
-        //back = _intent.getStringExtra("BACK");
-
         //Getting the list
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
 
@@ -51,8 +41,6 @@ public class DisplayFlashCard extends AppCompatActivity {
         frontView.setText(topicFlashcards.get(index).get_front());
         backView.setText(topicFlashcards.get(index).get_back());
 
-        // set the back portion of the flashcard to be invisible on create
-        //backView.setVisibility(View.INVISIBLE);
     }
 
     // The .xml file is modified to use this view.
@@ -61,12 +49,10 @@ public class DisplayFlashCard extends AppCompatActivity {
         if (View.INVISIBLE == frontView.getVisibility()){
             backView.setVisibility(View.INVISIBLE);
             frontView.setVisibility(View.VISIBLE);
-            //frontView.setText(front);
         }
         else{
             frontView.setVisibility(View.INVISIBLE);
             backView.setVisibility(View.VISIBLE);
-           // backView.setText(back);
         }
     }
 
@@ -102,10 +88,25 @@ public class DisplayFlashCard extends AppCompatActivity {
 
     //delete method for delete button - removes the object from the map for the current index
     public void deleteCard(View view) {
+        System.out.println(index);
         topicFlashcards.remove(index);
         nextCard(view);
         //Converting the List into a Map
         Map<String, ArrayList<FlashCard>> UpdatedFlashCard = saveToFile.covertToMap(topicFlashcards);
         saveToFile.writeToFile2(this, UpdatedFlashCard);
+    }
+
+    public void editCard(View view) {
+        String _topic = topicFlashcards.get(index).get_topic();
+        String _front = topicFlashcards.get(index).get_front();
+        String _back = topicFlashcards.get(index).get_back();
+        System.out.println("topic = " + _topic + " front = " + _front + " back = " + _back);
+        Intent intent = new Intent(this, NewFlashCard.class);
+        intent.putExtra("TOPIC", _topic);
+        intent.putExtra("FRONT", _front);
+        intent.putExtra("BACK", _back);
+        deleteCard(view);
+        startActivity(intent);
+
     }
 }

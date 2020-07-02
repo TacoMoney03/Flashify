@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                     /* Main passes the map to NewFlashCard so it has all the elements
                      restored from memory.*/
-                    NewFlashCard.setFlasCardList(flashCardMap);
+                    NewFlashCard.setFlashCardList(flashCardMap);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

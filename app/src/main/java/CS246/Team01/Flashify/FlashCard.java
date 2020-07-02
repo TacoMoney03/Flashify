@@ -52,7 +52,7 @@ public class FlashCard implements Parcelable, Serializable {
         }
     };
 
-    public String get_topic() {
+    String get_topic() {
         return _topic;
     }
 
