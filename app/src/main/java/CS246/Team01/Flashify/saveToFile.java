@@ -20,11 +20,12 @@ public class saveToFile {
             // Creates a file in the application path obtained from the application context
             // Android takes care of the context
             File file = new File(card.getBaseContext().getFilesDir(), "flashCards.dat");
+            System.out.println(file);
 
             //Create a new file
             file.createNewFile();
 
-            try{
+            try {
                 FileOutputStream out = new FileOutputStream(file, false);
                 ObjectOutputStream oout = new ObjectOutputStream(out);
 
@@ -51,11 +52,10 @@ public class saveToFile {
         //The map of objects
         Map<String, ArrayList<FlashCard>> UpdatedFlashCard = new HashMap<>();
 
-        for (int i = 0; i < receivedList.size(); i++){
-            if (UpdatedFlashCard.containsKey(receivedList.get(i).get_topic())){
+        for (int i = 0; i < receivedList.size(); i++) {
+            if (UpdatedFlashCard.containsKey(receivedList.get(i).get_topic())) {
                 Objects.requireNonNull(UpdatedFlashCard.get(receivedList.get(i).get_topic())).add(receivedList.get(i));
-            }
-            else{
+            } else {
                 ArrayList<FlashCard> list = new ArrayList<>();
                 UpdatedFlashCard.put(receivedList.get(i).get_topic(), list);
                 Objects.requireNonNull(UpdatedFlashCard.get(receivedList.get(i).get_topic())).add(receivedList.get(i));
@@ -63,5 +63,37 @@ public class saveToFile {
         }
 
         return UpdatedFlashCard;
+    }
+
+    static void writeToFile2(DisplayFlashCard card, Map<String, ArrayList<FlashCard>> flashCardList) {
+        try {
+            // Creates a file in the application path obtained from the application context
+            // Android takes care of the context
+            File file = new File(card.getBaseContext().getFilesDir(), "flashCards.dat");
+            System.out.println(file);
+
+            //Create a new file
+            file.createNewFile();
+
+            try {
+                FileOutputStream out = new FileOutputStream(file, false);
+                ObjectOutputStream oout = new ObjectOutputStream(out);
+
+                // Write the whole flashcard map in the file
+                oout.writeObject(flashCardList);
+                oout.flush();
+
+                saveMessage = "Flash Card Saved Successfully";
+            } catch (Exception ex) {
+                saveMessage = "Error Saving Flash Card!";
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            saveMessage = "Error Saving Flash Card!";
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
     }
 }

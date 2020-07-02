@@ -106,6 +106,6 @@ public class DisplayFlashCard extends AppCompatActivity {
         nextCard(view);
         //Converting the List into a Map
         Map<String, ArrayList<FlashCard>> UpdatedFlashCard = saveToFile.covertToMap(topicFlashcards);
-        saveToFile.writeToFile(this, UpdatedFlashCard);
+        saveToFile.writeToFile2(this, UpdatedFlashCard);
     }
 }
