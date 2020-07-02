@@ -103,7 +103,7 @@ public class DisplayFlashCard extends AppCompatActivity {
     public void deleteCard(View view) {
         topicFlashcards.remove(index);
         nextCard(view);
-        // need to fix save function
-        //saveToFile.writeToFile(topicFlashcards);
+        //Converting the List into a Map
+        saveToFile.covertToMap(topicFlashcards);
     }
 }

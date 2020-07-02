@@ -5,12 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class saveToFile {
 
+    //Message to return
     static String saveMessage = "";
 
+    //Write the objects as map in the file
     static String writeToFile(NewFlashCard card, Map<String, ArrayList<FlashCard>> flashCardList) {
         try {
             // Creates a file in the application path obtained from the application context
@@ -40,5 +44,17 @@ public class saveToFile {
         }
 
         return saveMessage;
+    }
+
+    //This method will take a list and creat a map with a list
+    static Map<String, ArrayList<FlashCard>> covertToMap(ArrayList<FlashCard> receivedList) {
+        //The map of objects
+        Map<String, ArrayList<FlashCard>> UpdatedFlashCard = new HashMap<>();
+
+        for (int i = 0; i < receivedList.size(); i++){
+
+        }
+
+        return UpdatedFlashCard;
     }
 }
