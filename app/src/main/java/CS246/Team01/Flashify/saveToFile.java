@@ -52,7 +52,14 @@ public class saveToFile {
         Map<String, ArrayList<FlashCard>> UpdatedFlashCard = new HashMap<>();
 
         for (int i = 0; i < receivedList.size(); i++){
-
+            if (UpdatedFlashCard.containsKey(receivedList.get(i).get_topic())){
+                Objects.requireNonNull(UpdatedFlashCard.get(receivedList.get(i).get_topic())).add(receivedList.get(i));
+            }
+            else{
+                ArrayList<FlashCard> list = new ArrayList<>();
+                UpdatedFlashCard.put(receivedList.get(i).get_topic(), list);
+                Objects.requireNonNull(UpdatedFlashCard.get(receivedList.get(i).get_topic())).add(receivedList.get(i));
+            }
         }
 
         return UpdatedFlashCard;

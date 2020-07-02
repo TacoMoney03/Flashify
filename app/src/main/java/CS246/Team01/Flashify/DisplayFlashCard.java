@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 public class DisplayFlashCard extends AppCompatActivity {
     private String front;
@@ -104,6 +105,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         topicFlashcards.remove(index);
         nextCard(view);
         //Converting the List into a Map
-        saveToFile.covertToMap(topicFlashcards);
+        Map<String, ArrayList<FlashCard>> UpdatedFlashCard = saveToFile.covertToMap(topicFlashcards);
+        saveToFile.writeToFile(this, UpdatedFlashCard);
     }
 }
