@@ -20,6 +20,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
+    ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        topicFlashcards = saveToFile.convertToList(flashCardMap);
+        System.out.println(flashCardMap);
+        System.out.println(topicFlashcards);
 
         // Create a simple adapter to put the list into the list view
         menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));

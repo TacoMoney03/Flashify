@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -63,6 +64,14 @@ public class saveToFile {
         }
 
         return UpdatedFlashCard;
+    }
+
+    static ArrayList<FlashCard> convertToList(Map<String, ArrayList<FlashCard>> receivedMap) {
+        ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<FlashCard>> entry : receivedMap.entrySet()) {
+            topicFlashcards = entry.getValue();
+        }
+        return topicFlashcards;
     }
 
     static void writeToFile2(DisplayFlashCard card, Map<String, ArrayList<FlashCard>> flashCardList) {
