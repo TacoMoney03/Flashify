@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,39 +32,15 @@ public class MainActivity extends AppCompatActivity {
         // find the menu, set it to variable named menu
         menu = findViewById(R.id.menu);
 
-        try {
-            //Load Flash Card list from memory
-            File file = new File(this.getBaseContext().getFilesDir(), "flashCards.dat");
-            // Check whether the file can be read or not
-            if (file.canRead()) {
-                try {
-                    // A fileInputStream is necessary to read the file
-                    FileInputStream in = new FileInputStream(file);
+        //Instantiate the reading file class
+        ReadToFile readToFile = new ReadToFile();
 
-                    // In order to read the file an ObjectInputStream is also necessary because the file contents an object (the map).
-                    ObjectInputStream ois = new ObjectInputStream(in);
+        //Set the flashCardMap
+        flashCardMap = readToFile.getFlashCardMap();
 
-                    flashCardMap = (Map<String, ArrayList<FlashCard>>) ois.readObject();
+        //Set topic Menu
+        topicsMenu = readToFile.getTopicsMenu();
 
-                    /* Main passes the map to NewFlashCard so it has all the elements
-                     restored from memory.*/
-                    NewFlashCard.setFlashCardList(flashCardMap);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-                // Creates an iterator to go through all the keys.
-
-                // Go trough all the keys
-                // Taylor changed from while to for each loop
-                for (Object key : flashCardMap.keySet()) {
-                    topicsMenu.add(key.toString());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
         topicFlashcards = saveToFile.convertToList(flashCardMap);
         System.out.println(flashCardMap);
         System.out.println(topicFlashcards);
