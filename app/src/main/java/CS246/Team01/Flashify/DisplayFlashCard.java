@@ -88,11 +88,11 @@ public class DisplayFlashCard extends AppCompatActivity {
 
     //delete method for delete button - removes the object from the map for the current index
     public void deleteCard(View view) {
-        System.out.println(index);
         topicFlashcards.remove(index);
         nextCard(view);
         //Converting the List into a Map
         Map<String, ArrayList<FlashCard>> UpdatedFlashCard = saveToFile.covertToMap(topicFlashcards);
+        System.out.println(UpdatedFlashCard);
         saveToFile.writeToFile2(this, UpdatedFlashCard);
     }
 
