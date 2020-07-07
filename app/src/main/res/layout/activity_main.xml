@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="casual"
-        android:text="Welcome To Flashify!"
+        android:text='To start, please tap on the "Add Flash Card" button'
         android:textColor="#673AB7"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,12 +64,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="casual"
-        android:text='To start, please tap on the "Add Flash Card" button'
+        android:text="Topics"
         android:textAlignment="center"
         android:textColor="#673AB7"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="search"
+        app:backgroundTint="#673AB7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintVertical_bias="0.285"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

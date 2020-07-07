@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ListView menu;
-    private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<String, ArrayList<FlashCard>>();
+    private HashMap<String, ArrayList<FlashCard>> flashCardMap = new HashMap<String, ArrayList<FlashCard>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     // In order to read the file an ObjectInputStream is also necessary because the file contents an object (the map).
                     ObjectInputStream ois = new ObjectInputStream(in);
 
-                    flashCardMap = (Map<String, ArrayList<FlashCard>>) ois.readObject();
+                    flashCardMap = (HashMap<String, ArrayList<FlashCard>>) ois.readObject();
 
                     /* Main passes the map to NewFlashCard so it has all the elements
                      restored from memory.*/
@@ -102,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
     public void newFlashCardView(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
+        startActivity(intent);
+    }
+
+    public void search(View view){
+        Intent intent = new Intent(this, Search.class);
+        intent.putExtra("map", flashCardMap);
         startActivity(intent);
     }
 

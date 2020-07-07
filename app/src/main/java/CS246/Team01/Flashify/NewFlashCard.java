@@ -23,7 +23,7 @@ public class NewFlashCard extends AppCompatActivity {
 
     /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
     pass a reference to the map in main without a pointer. This has room for improvement*/
-    private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
+    private static HashMap<String, ArrayList<FlashCard>> flashCardList = new HashMap<String, ArrayList<FlashCard>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +133,7 @@ public class NewFlashCard extends AppCompatActivity {
     }
 
     //Map is received from the Main Activity
-    static void setFlasCardList(Map<String, ArrayList<FlashCard>> list){
+    static void setFlasCardList(HashMap<String, ArrayList<FlashCard>> list){
         flashCardList = list;
     }
 }

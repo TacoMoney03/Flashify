@@ -25,7 +25,7 @@ public class TopicActivity extends AppCompatActivity {
         String topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
         topicFlashcards = intent.getParcelableArrayListExtra("LIST");
 
-        TextView topicTitle = (TextView) findViewById(R.id.topicText);
+        TextView topicTitle = findViewById(R.id.topicText);
         topicTitle.setText(topic); //Display the value from the previously selected "TOPIC" key
 
         // Create a list with all the flashcard fronts.
@@ -37,7 +37,7 @@ public class TopicActivity extends AppCompatActivity {
         }
 
         // Get the list view where the flashcards will be displayed
-        frontsList = (ListView) findViewById(R.id.flashCardListView);
+        frontsList = findViewById(R.id.flashCardListView);
         frontsList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, fronts));
 
         //Added to detect when the user selects a flashcard from the list
