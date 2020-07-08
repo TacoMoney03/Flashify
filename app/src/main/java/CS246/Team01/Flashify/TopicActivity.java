@@ -1,5 +1,6 @@
 package CS246.Team01.Flashify;
 
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class TopicActivity extends AppCompatActivity {
     public ListView frontsList;
@@ -34,9 +36,18 @@ public class TopicActivity extends AppCompatActivity {
     When the activity is resume the content is reset
      */
     @Override
-    public void onResume(){
-        super.onResume();
+    public void onRestart(){
+        super.onRestart();
 
+        //Read from the file and get the updated map
+        ReadToFile readToFile = new ReadToFile();
+        Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+
+        //get the correct object using the key=topic
+        topicFlashcards = fileData.get(topic);
+
+        //Update the content
+        setContent();
     }
 
     public void setContent() {
