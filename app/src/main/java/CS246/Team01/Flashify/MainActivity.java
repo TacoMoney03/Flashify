@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Set the content of the page
+        //Set the content of the activity
         setContent();
     }
 
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        //Set the content of the page
+        //Set an updated content of the activity
         setContent();
     }
 
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
 
+        //Set an updated content of the activity
         setContent();
     }
 
