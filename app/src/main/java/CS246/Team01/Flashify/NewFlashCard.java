@@ -22,10 +22,12 @@ public class NewFlashCard extends AppCompatActivity {
     pass a reference to the map in main without a pointer. This has room for improvement*/
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flash_card);
+        final Button saveButton = findViewById(R.id.saveButton);
 
         EditText topicText = findViewById(R.id.topicText);
         EditText frontText = findViewById(R.id.frontText);
@@ -37,11 +39,14 @@ public class NewFlashCard extends AppCompatActivity {
         topicText.setText(_topic);
         frontText.setText(_front);
         backText.setText(_back);
+        if(topicText.getText().toString().equals(_topic)){
+            saveButton.setEnabled(false);
+        } saveButton.setEnabled(true);
 
     /* Every Flash Card must have a topic in order to be saved. This activity will begin with a
     disabled SAVE button. Once there is a topic, the SAVE button will be enabled.
      */
-        final Button saveButton = findViewById(R.id.saveButton);
+
 
         /* A TextWatcher is created in onCreate. This text watcher will listen to the
         * text input and will enable or disable the save button if the text input has

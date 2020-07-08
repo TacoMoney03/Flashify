@@ -143,6 +143,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void editCard(View view) {
         String _topic = topicFlashcards.get(index).get_topic();
         String _front = topicFlashcards.get(index).get_front();
@@ -152,8 +153,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("TOPIC", _topic);
         intent.putExtra("FRONT", _front);
         intent.putExtra("BACK", _back);
-        //deleteCard(view);
         startActivity(intent);
-
+        deleteCard(view);
     }
 }
