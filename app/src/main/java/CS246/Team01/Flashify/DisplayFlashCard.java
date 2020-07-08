@@ -1,8 +1,11 @@
 package CS246.Team01.Flashify;
 
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -87,13 +90,22 @@ public class DisplayFlashCard extends AppCompatActivity {
     }
 
     //delete method for delete button - removes the object from the map for the current index
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void deleteCard(View view) {
+        //Remove the index
         topicFlashcards.remove(index);
         nextCard(view);
+
+        //Instatiate the reading
+        ReadToFile readToFile = new ReadToFile();
+
         //Converting the List into a Map
-        Map<String, ArrayList<FlashCard>> UpdatedFlashCard = saveToFile.covertToMap(topicFlashcards);
-        System.out.println(UpdatedFlashCard);
-        saveToFile.writeToFile2(this, UpdatedFlashCard);
+        Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+
+        //Replace the object to the update one
+        fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
+
+        saveToFile.writeToFile2(this, fileData);
     }
 
     public void editCard(View view) {
