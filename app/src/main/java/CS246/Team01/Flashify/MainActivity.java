@@ -18,16 +18,49 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    /**
+    * menu = The menu set on the client screen
+    * flashCardMap = A map holding the topic=key and object=value of a flash card set
+    * topicFlashCard = a object holding a single set of flashcards with a specific topic
+     */
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
-    ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
+    private ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
 
 
+    /*
+    * Call the set content on the Creation
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Set the content of the page
+        setContent();
+    }
+
+    /*
+     * This method will set an updated content with the
+     * the activity is restarted
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //Set the content of the page
+        setContent();
+    }
+
+    /*
+    * This method is responsible for setting the content
+    * of the main page - it is called when the Main activity
+    * is created or restarted
+     */
+    private void setContent() {
         setContentView(R.layout.activity_main);
-        ArrayList<String> topicsMenu = new ArrayList<>();
+
+        ArrayList<String> topicsMenu;
 
         // find the menu, set it to variable named menu
         menu = findViewById(R.id.menu);
@@ -58,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // Call the new topic activity creating function passing the element tapped
                 newTopicView(topicItem.toString());
-          }
+            }
         });
     }
+
+
 
     //
     @Override

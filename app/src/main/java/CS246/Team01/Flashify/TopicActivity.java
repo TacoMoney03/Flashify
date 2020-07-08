@@ -33,8 +33,9 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     /*
-    When the activity is resume the content is reset
-     */
+    * When the activity is restated we reset the content
+    * with updated information
+    */
     @Override
     public void onRestart(){
         super.onRestart();
