@@ -1,37 +1,37 @@
 package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This MainActivity Class will be responsible for setting
+ * the start content o the application. It will read the necessary
+ * data from a file inside the device and call the proper methods according
+ * with the user interaction
+ */
 public class MainActivity extends AppCompatActivity {
 
     /**
-    * menu = The menu set on the client screen
-    * flashCardMap = A map holding the topic=key and object=value of a flash card set
-    * topicFlashCard = a object holding a single set of flashcards with a specific topic
+     * menu = The menu set on the client screen
+     * flashCardMap = A map holding the topic=key and object=value of a flash card set
+     * topicFlashCard = a object holding a single set of flashcards with a specific topic
      */
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
 
 
-    /*
-    * Call the set content on the Creation
-    */
+    /**
+     * Call the set content on the Creation
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContent();
     }
 
-    /*
+    /**
      * This method will set an updated content with the
      * the activity is restarted
      */
@@ -52,10 +52,22 @@ public class MainActivity extends AppCompatActivity {
         setContent();
     }
 
-    /*
-    * This method is responsible for setting the content
-    * of the main page - it is called when the Main activity
-    * is created or restarted
+    /**
+     * This method will reset the updated
+     * content when main is resumed after
+     * any changes on other parts of the application
+     */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        setContent();
+    }
+
+    /**
+     * This method is responsible for setting the content
+     * of the main page - it is called when the Main activity
+     * is created or restarted
      */
     private void setContent() {
         setContentView(R.layout.activity_main);
@@ -95,31 +107,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-    //
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Iterator<String> iterator = flashCardMap.keySet().iterator(); // New Iterator
-        ArrayList<String> topicsMenu = new ArrayList<>(); // New topic list (So it won't create duplicates)
-
-        while(iterator.hasNext()){
-            Object key = iterator.next();
-            topicsMenu.add(key.toString());
-        }
-
-        menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));
-    }
-
-    /* This method will call the createFlashCard activity when the user taps the
-     * "Add Flash Card" button*/
+    /**
+     *  This method will call the createFlashCard activity when
+     *  the user taps the "Add Flash Card" button
+     */
     public void newFlashCardView(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
         startActivity(intent);
     }
 
+    /**
+     * This method will call the next activity that contains a specific
+     * topic and a set of flashcards that belongs to it
+     * @param topic  A String that holds the topic to be presented on the next activity
+     */
     public void newTopicView(String topic){
         // Get the flashcards list corresponding to the topic
         ArrayList<FlashCard> topicFlashcards = flashCardMap.get(topic);
