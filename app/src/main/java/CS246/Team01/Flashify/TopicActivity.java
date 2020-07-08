@@ -12,8 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TopicActivity extends AppCompatActivity {
-    ListView frontsList;
-    ArrayList<FlashCard> topicFlashcards;
+    public ListView frontsList;
+    public ArrayList<FlashCard> topicFlashcards;
+    public String topic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,23 @@ public class TopicActivity extends AppCompatActivity {
 
         //Get the topic activity intent so we can get the topic string and the FlashCard ArrayList
         Intent intent = getIntent();
-        String topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
+        topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
         topicFlashcards = intent.getParcelableArrayListExtra("LIST");
 
+        //Call the content setting method
+        setContent();
+    }
+
+    /*
+    When the activity is resume the content is reset
+     */
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+
+    public void setContent() {
         // Taylor removed redundant cast
         TextView topicTitle = findViewById(R.id.topicText);
         topicTitle.setText(topic); //Display the value from the previously selected "TOPIC" key
@@ -71,4 +86,6 @@ public class TopicActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 }
