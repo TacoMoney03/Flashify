@@ -92,20 +92,48 @@ public class DisplayFlashCard extends AppCompatActivity {
     //delete method for delete button - removes the object from the map for the current index
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void deleteCard(View view) {
+
+        /*
+        * Check the condition of the flashcard topic set
+        * if it is empty it must remove the entire set from
+        * the data in the file. If it is not on the last
+        * must got the next flashcard on the list
+        */
         //Remove the index
-        topicFlashcards.remove(index);
-        nextCard(view);
+        if (topicFlashcards.size() == 1) {
+            //Instantiate the reading
+            ReadToFile readToFile = new ReadToFile();
 
-        //Instatiate the reading
-        ReadToFile readToFile = new ReadToFile();
+            //Converting the List into a Map
+            Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
 
-        //Converting the List into a Map
-        Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+            //remove the whole object
+            fileData.remove(topicFlashcards.get(0).get_topic());
 
-        //Replace the object to the update one
-        fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
+            //Update by saving to the file
+            saveToFile.writeToFile2(this, fileData);
 
-        saveToFile.writeToFile2(this, fileData);
+            //Go back to main activity
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+
+        } else  {
+            topicFlashcards.remove(index);
+
+            //Instatiate the reading
+            ReadToFile readToFile = new ReadToFile();
+
+            //Converting the List into a Map
+            Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+
+            //Replace the object to the update one
+            fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
+
+            saveToFile.writeToFile2(this, fileData);
+
+            nextCard(view);
+        }
     }
 
     public void editCard(View view) {
@@ -117,7 +145,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("TOPIC", _topic);
         intent.putExtra("FRONT", _front);
         intent.putExtra("BACK", _back);
-        deleteCard(view);
+        //deleteCard(view);
         startActivity(intent);
 
     }
