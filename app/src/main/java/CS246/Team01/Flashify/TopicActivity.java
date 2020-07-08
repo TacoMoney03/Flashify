@@ -46,13 +46,14 @@ public class TopicActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Call the new topic activity creating function passing the element tapped
-                viewCard(topicFlashcards.get(position).get_front(), topicFlashcards.get(position).get_back());
+                viewCard(topicFlashcards.get(position).get_front(), topicFlashcards.get(position).get_back(), position);
+                System.out.println(position);
             }
         });
     }
 
     // method to call next activity to view flashcards
-    public void viewCard(String front, String back) {
+    public void viewCard(String front, String back, int index) {
         // Create the intent
         Intent intent = new Intent (this, DisplayFlashCard.class);
 
@@ -62,6 +63,11 @@ public class TopicActivity extends AppCompatActivity {
         // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
+
+        //Get the proper Index and pass it
+        intent.putExtra("INDEX", index);
+
+
         startActivity(intent);
 
     }

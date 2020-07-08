@@ -19,7 +19,7 @@ public class DisplayFlashCard extends AppCompatActivity {
     private TextView frontView;
     private TextView backView;
 
-    ArrayList<FlashCard> topicFlashcards;
+    public ArrayList<FlashCard> topicFlashcards;
 
 
     int index = 0;
@@ -28,6 +28,11 @@ public class DisplayFlashCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_flash_card);
+
+        //get the index being received
+        Intent intent = getIntent();
+        index = getIntent().getIntExtra("INDEX", 0);
+
         setCardText();
         backView.setVisibility(View.INVISIBLE);
     }
@@ -36,6 +41,8 @@ public class DisplayFlashCard extends AppCompatActivity {
         // grab all views by ID on create
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
+
+        System.out.println(index);
 
         //Getting the list
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
