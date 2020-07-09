@@ -117,11 +117,11 @@ public class NewFlashCard extends AppCompatActivity {
                 //Replace the object to the update one
                 fileData.replace(topic, topicFlashcards);
                 System.out.println(fileData);
-                saveMessage = saveToFile.writeToFile(this, flashCardList);
+                saveMessage = SaveToFile.writeToFile(this, flashCardList);
             } else {
                 System.out.println("Made it to else from nested if");
                 Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
-                saveMessage = saveToFile.writeToFile(this, flashCardList);
+                saveMessage = SaveToFile.writeToFile(this, flashCardList);
             }
         }
         else{
@@ -129,7 +129,7 @@ public class NewFlashCard extends AppCompatActivity {
             ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
-            saveMessage = saveToFile.writeToFile(this, flashCardList);
+            saveMessage = SaveToFile.writeToFile(this, flashCardList);
         }
 
 
