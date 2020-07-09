@@ -79,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
 
         //Instantiate the reading file class
-        ReadToFile readToFile = new ReadToFile();
+        ReadFromFile readFromFile = new ReadFromFile();
 
         //Set the flashCardMap
-        flashCardMap = readToFile.getFlashCardMap();
+        flashCardMap = readFromFile.getFlashCardMap();
 
         //Set topic Menu
-        topicsMenu = readToFile.getTopicsMenu();
+        topicsMenu = readFromFile.getTopicsMenu();
 
         topicFlashcards = SaveToFile.convertToList(flashCardMap);
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
      * topic and a set of flashcards that belongs to it
      * @param topic  A String that holds the topic to be presented on the next activity
      */
-    public void newTopicView(String topic){
+    private void newTopicView(String topic){
         // Get the flashcards list corresponding to the topic
         ArrayList<FlashCard> topicFlashcards = flashCardMap.get(topic);
 

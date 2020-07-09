@@ -7,18 +7,38 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReadToFile {
+/**
+ * This Class is responsible for reading data from the
+ * file that is stored in the phone, This must be instantiated
+ * when used. It gives access List of Topics and a Map of flashcards
+ * cotaining key = topic and a value = List of object (FlashCard)
+ */
+public class ReadFromFile {
 
+    /**
+     * FlashCardMap = A Map with a key = topic and a value = List of object (FlashCard)
+     * topicsMenu = A List of topics or keys
+     * filePath = the path to a file where the data is stored
+     */
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private ArrayList<String> topicsMenu = new ArrayList<>();
+    private final String filePath = "/data/user/0/CS246.Team01.Flashify/files/flashCards.dat";
 
-    public ReadToFile() {
+    /**
+     * This Method is responsible for reading the data from
+     * the file and converting them to the FlashCardMap and
+     * Topic List
+     */
+    public ReadFromFile() {
         try {
+
             //Load Flash Card list from memory
-            File file = new File("/data/user/0/CS246.Team01.Flashify/files/flashCards.dat");
+            File file = new File(filePath);
+
             // Check whether the file can be read or not
             if (file.canRead()) {
                 try {
+
                     // A fileInputStream is necessary to read the file
                     FileInputStream in = new FileInputStream(file);
 
@@ -27,17 +47,17 @@ public class ReadToFile {
 
                     flashCardMap = (Map<String, ArrayList<FlashCard>>) ois.readObject();
 
-                    /* Main passes the map to NewFlashCard so it has all the elements
-                     restored from memory.*/
+                    /**
+                     * Passes the map to NewFlashCard so it has all the elements
+                     * restored from memory.
+                     */
                     NewFlashCard.setFlashCardList(flashCardMap);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
-                // Creates an iterator to go through all the keys.
-
-                // Go trough all the keys
-                // Taylor changed from while to for each loop
+                //Loop through the keys
                 for (Object key : flashCardMap.keySet()) {
                     topicsMenu.add(key.toString());
                 }
@@ -48,11 +68,19 @@ public class ReadToFile {
         }
     }
 
+    /**
+     * Gives external access to the flashCardMap
+     * @return a Map with a topicKey and a list of FlashCard values
+     */
     public Map<String, ArrayList<FlashCard>> getFlashCardMap() {
         return flashCardMap;
     }
 
-    public ArrayList<String> getTopicsMenu() {
+    /**
+     *  Gives external access to a list of topics
+     * @return a list of flashcard topics
+     */
+   public ArrayList<String> getTopicsMenu() {
         return topicsMenu;
     }
 

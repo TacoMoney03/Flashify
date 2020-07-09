@@ -1,6 +1,5 @@
 package CS246.Team01.Flashify;
 
-import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,8 +40,8 @@ public class TopicActivity extends AppCompatActivity {
         super.onRestart();
 
         //Read from the file and get the updated map
-        ReadToFile readToFile = new ReadToFile();
-        Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+        ReadFromFile readFromFile = new ReadFromFile();
+        Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
 
         //get the correct object using the key=topic
         topicFlashcards = fileData.get(topic);

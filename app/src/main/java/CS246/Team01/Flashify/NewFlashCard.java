@@ -108,10 +108,10 @@ public class NewFlashCard extends AppCompatActivity {
         if (flashCardList.containsKey(topic)){
             if (_edit) {
                 System.out.println("Made it to _edit is true");
-                ReadToFile readToFile = new ReadToFile();
+                ReadFromFile readFromFile = new ReadFromFile();
 
                 //Converting the List into a Map
-                Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+                Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
                 topicFlashcards.set(index, flashCard);
                 System.out.println(fileData);
                 //Replace the object to the update one
