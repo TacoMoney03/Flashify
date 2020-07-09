@@ -105,7 +105,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         //Remove the index
         if (topicFlashcards.size() == 1) {
             //Instantiate the reading
-            FileHelper fileHelper = new FileHelper();
+            FileHelper fileHelper = new FileHelper(this, null, null, null);
 
             //Converting the List into a Map
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
@@ -125,7 +125,7 @@ public class DisplayFlashCard extends AppCompatActivity {
             topicFlashcards.remove(index);
 
             //Instatiate the reading
-            FileHelper fileHelper = new FileHelper();
+            FileHelper fileHelper = new FileHelper(this, null, null, null);
 
             //Converting the List into a Map
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();

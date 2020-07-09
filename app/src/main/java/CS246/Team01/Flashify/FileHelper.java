@@ -1,5 +1,7 @@
 package CS246.Team01.Flashify;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,7 +17,7 @@ import java.util.Map;
  * when used. It gives access List of Topics and a Map of flashcards
  * cotaining key = topic and a value = List of object (FlashCard)
  */
-public class FileHelper {
+public class FileHelper extends AppCompatActivity {
 
     /**
      * FlashCardMap = A Map with a key = topic and a value = List of object (FlashCard)
@@ -24,18 +26,24 @@ public class FileHelper {
      */
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private ArrayList<String> topicsMenu = new ArrayList<>();
-    private final String filePath = "/data/user/0/CS246.Team01.Flashify/files/flashCards.dat";
+    private File filePath;
 
     /**
      * This Method is responsible for reading the data from
      * the file and converting them to the FlashCardMap and
      * Topic List
      */
-    public FileHelper() {
+    public FileHelper(DisplayFlashCard display, MainActivity main, NewFlashCard newFlashCard, TopicActivity topics) {
+
+        if (display != null) { filePath = display.getBaseContext().getFilesDir(); }
+        if (main != null) { filePath = main.getBaseContext().getFilesDir(); }
+        if (newFlashCard != null) { filePath = newFlashCard.getBaseContext().getFilesDir(); }
+        if (topics != null) { filePath = topics.getBaseContext().getFilesDir(); }
+
         try {
 
             //Load Flash Card list from memory
-            File file = new File(filePath);
+            File file = new File(filePath,  "flashCards.dat");
 
             // Check whether the file can be read or not
             if (file.canRead()) {
@@ -93,7 +101,7 @@ public class FileHelper {
         /** Creates a file in the application path obtained from
          * the application context Android takes care of the context
          */
-        File file = new File(filePath);
+        File file = new File(filePath,  "flashCards.dat");
 
         try {
             FileOutputStream out = new FileOutputStream(file, false);

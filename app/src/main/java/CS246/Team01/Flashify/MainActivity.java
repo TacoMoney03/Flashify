@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
 
         //Instantiate the reading file class
-        FileHelper fileHelper = new FileHelper();
+        FileHelper fileHelper = new FileHelper(null, this, null, null);
 
         //Set the flashCardMap
         flashCardMap = fileHelper.getFlashCardMap();

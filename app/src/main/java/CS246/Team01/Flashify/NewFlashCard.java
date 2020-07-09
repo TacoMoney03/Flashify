@@ -28,13 +28,15 @@ public class NewFlashCard extends AppCompatActivity {
     public ArrayList<FlashCard> topicFlashcards;
     private int index;
     private String saveMessage;
-    private FileHelper fileHelper = new FileHelper();
+    private FileHelper fileHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flash_card);
         final Button saveButton = findViewById(R.id.saveButton);
+
+        fileHelper = new FileHelper(null, null, this, null);
 
         EditText topicText = findViewById(R.id.topicText);
         EditText frontText = findViewById(R.id.frontText);
