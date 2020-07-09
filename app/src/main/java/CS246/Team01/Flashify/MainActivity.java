@@ -2,6 +2,7 @@ package CS246.Team01.Flashify;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
+    final String PREFS_NAME = "MyPrefsFile";
 
 
     /**
@@ -72,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setContent() {
         setContentView(R.layout.activity_main);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        if (settings.getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            preloadFlashCards();
+            // first time task
+
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
 
         ArrayList<String> topicsMenu;
 
@@ -136,4 +147,31 @@ public class MainActivity extends AppCompatActivity {
         intent.putParcelableArrayListExtra("LIST", topicFlashcards);
         startActivity(intent);
     }
+
+    public void preloadFlashCards() {
+        FlashCard demo1 = new FlashCard("English", "Quiz", "Quick test of knowledge");
+        FlashCard demo2 = new FlashCard("English", "Afraid", "Impressed with fear or apprehension");
+        FlashCard demo3 = new FlashCard("English", "Dead", "No longer living");
+        FlashCard demo4 = new FlashCard("English", "Film", "A medium used to capture images in a camera");
+        FlashCard demo5 = new FlashCard("Biology", "Abdomen", "the region between the pelvis (pelvic brim) and the thorax (thoracic diaphragm) in vertebrates, including humans");
+        FlashCard demo6 = new FlashCard("Biology", "Brain", "an organ that coordinates nervous system function in vertebrate and most invertebrate animals");
+        FlashCard demo7 = new FlashCard("Biology", "Gene", "an extremely specific sequence of nucleotide monomers that has the ability to completely or partially control the expression of one or more traits in every type of living organism");
+        FlashCard demo8 = new FlashCard("Biology", "Metamorphosis", "a process by which animals undergo extreme, rapid physical changes some time after birth");
+        ArrayList<FlashCard> list1 = new ArrayList<>();
+        list1.add(0, demo1);
+        list1.add(1, demo2);
+        list1.add(2, demo3);
+        list1.add(3, demo4);
+        ArrayList<FlashCard> list2 = new ArrayList<>();
+        list2.add(0, demo5);
+        list2.add(1, demo6);
+        list2.add(2, demo7);
+        list2.add(3, demo8);
+        Map<String, ArrayList<FlashCard>> defaultMap = new HashMap<>();
+        defaultMap.put("English", list1);
+        defaultMap.put("Biology", list2);
+        FileHelper fileHelper = new FileHelper(null, this, null, null);
+        fileHelper.saveToFile(defaultMap);
+    }
+
 }
