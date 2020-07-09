@@ -3,6 +3,7 @@
 package CS246.Team01.Flashify;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +24,10 @@ public class NewFlashCard extends AppCompatActivity {
     /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
     pass a reference to the map in main without a pointer. This has room for improvement*/
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
-
+    Boolean _edit;
+    public ArrayList<FlashCard> topicFlashcards;
+    private int index;
+    private String saveMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +42,17 @@ public class NewFlashCard extends AppCompatActivity {
         String _topic = intent.getStringExtra("TOPIC");
         String _front = intent.getStringExtra("FRONT");
         String _back = intent.getStringExtra("BACK");
+        _edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
+        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+        index = getIntent().getIntExtra("INDEX", 0);
+        System.out.println(topicFlashcards);
+        System.out.println(index);
         topicText.setText(_topic);
         frontText.setText(_front);
         backText.setText(_back);
-        if(topicText.getText().toString().equals(_topic)){
-            saveButton.setEnabled(false);
-        } saveButton.setEnabled(true);
+            if(topicText.getText().toString().equals(_topic)){
+                saveButton.setEnabled(false);
+            } saveButton.setEnabled(true);
 
     /* Every Flash Card must have a topic in order to be saved. This activity will begin with a
     disabled SAVE button. Once there is a topic, the SAVE button will be enabled.
@@ -79,6 +90,7 @@ public class NewFlashCard extends AppCompatActivity {
 
     /* This method will be called in the create flash Card screen when the user taps on the SAVE
     button and will store the user's data input in the device as a Json file*/
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void saveFlashCard(View view){
         EditText topicText = findViewById(R.id.topicText);
         String topic = topicText.getText().toString();
@@ -94,22 +106,38 @@ public class NewFlashCard extends AppCompatActivity {
         will be added to the new list
         */
         if (flashCardList.containsKey(topic)){
-            Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
+            if (_edit) {
+                System.out.println("Made it to _edit is true");
+                ReadToFile readToFile = new ReadToFile();
+
+                //Converting the List into a Map
+                Map<String, ArrayList<FlashCard>> fileData = readToFile.getFlashCardMap();
+                topicFlashcards.set(index, flashCard);
+                System.out.println(fileData);
+                //Replace the object to the update one
+                fileData.replace(topic, topicFlashcards);
+                System.out.println(fileData);
+                saveMessage = saveToFile.writeToFile(this, flashCardList);
+            } else {
+                System.out.println("Made it to else from nested if");
+                Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
+                saveMessage = saveToFile.writeToFile(this, flashCardList);
+            }
         }
         else{
+            System.out.println("Made it to final else");
             ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
+            saveMessage = saveToFile.writeToFile(this, flashCardList);
         }
+
+
 
 
 
         //Call the static saving method to list
-        String saveMessage = saveToFile.writeToFile(this, flashCardList);
 
-
-
-        // Taylor removed catch block that was not necessary
 
         // The toast will let you know whether the saved was successful or not.
         Toast toast = Toast.makeText(getApplicationContext(),saveMessage , Toast.LENGTH_SHORT);

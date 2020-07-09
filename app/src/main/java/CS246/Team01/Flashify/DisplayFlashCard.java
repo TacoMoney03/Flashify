@@ -19,10 +19,10 @@ public class DisplayFlashCard extends AppCompatActivity {
     private TextView frontView;
     private TextView backView;
 
-    public ArrayList<FlashCard> topicFlashcards;
+    private ArrayList<FlashCard> topicFlashcards;
 
 
-    int index = 0;
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +153,10 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("TOPIC", _topic);
         intent.putExtra("FRONT", _front);
         intent.putExtra("BACK", _back);
+        intent.putExtra("EDIT", true);
+        intent.putExtra("mylist", topicFlashcards);
+        intent.putExtra("INDEX", index);
         startActivity(intent);
-        deleteCard(view);
+        //deleteCard(view);
     }
 }

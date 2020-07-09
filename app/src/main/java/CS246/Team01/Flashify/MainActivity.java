@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void newFlashCardView(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
+        intent.putExtra("EDIT", false);
         startActivity(intent);
     }
 
