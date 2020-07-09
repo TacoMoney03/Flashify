@@ -1,18 +1,15 @@
 package CS246.Team01.Flashify;
 
 import androidx.annotation.RequiresApi;
-import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 public class DisplayFlashCard extends AppCompatActivity {
@@ -118,7 +115,7 @@ public class DisplayFlashCard extends AppCompatActivity {
             fileData.remove(topicFlashcards.get(0).get_topic());
 
             //Update by saving to the file
-            saveToFile.writeToFile2(this, fileData);
+            SaveToFile.writeToFile2(this, fileData);
 
             //Go back to main activity
             Intent intent = new Intent(this, MainActivity.class);
@@ -137,7 +134,7 @@ public class DisplayFlashCard extends AppCompatActivity {
             //Replace the object to the update one
             fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
 
-            saveToFile.writeToFile2(this, fileData);
+            SaveToFile.writeToFile2(this, fileData);
 
             nextCard(view);
         }

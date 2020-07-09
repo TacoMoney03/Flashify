@@ -100,7 +100,7 @@ public class NewFlashCard extends AppCompatActivity {
 
 
         //Call the static saving method to list
-        String saveMessage = saveToFile.writeToFile(this, flashCardList);
+        String saveMessage = SaveToFile.writeToFile(this, flashCardList);
 
 
 

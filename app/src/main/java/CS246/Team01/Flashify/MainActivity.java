@@ -87,9 +87,7 @@ public class MainActivity extends AppCompatActivity {
         //Set topic Menu
         topicsMenu = readToFile.getTopicsMenu();
 
-        topicFlashcards = saveToFile.convertToList(flashCardMap);
-        System.out.println(flashCardMap);
-        System.out.println(topicFlashcards);
+        topicFlashcards = SaveToFile.convertToList(flashCardMap);
 
         // Create a simple adapter to put the list into the list view
         menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));
