@@ -86,6 +86,7 @@ public class FileHelper {
     /**
      * This method will be responsible for saving the data
      * to the file
+     * @param flashCardList = Is the map that needs to be saved!
      */
     public void saveToFile(Map<String, ArrayList<FlashCard>> flashCardList) {
 
@@ -111,6 +112,8 @@ public class FileHelper {
      * There was a need to convert the map to
      * a list - this method provides that
      * functionality
+     * @param receivedMap get the map that needs to be converted to a list
+     * @return the list of flashcards
      */
     public ArrayList<FlashCard> convertToList(Map<String, ArrayList<FlashCard>> receivedMap) {
 
