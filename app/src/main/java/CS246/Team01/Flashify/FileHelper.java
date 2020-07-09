@@ -2,7 +2,9 @@ package CS246.Team01.Flashify;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +15,7 @@ import java.util.Map;
  * when used. It gives access List of Topics and a Map of flashcards
  * cotaining key = topic and a value = List of object (FlashCard)
  */
-public class ReadFromFile {
+public class FileHelper {
 
     /**
      * FlashCardMap = A Map with a key = topic and a value = List of object (FlashCard)
@@ -29,7 +31,7 @@ public class ReadFromFile {
      * the file and converting them to the FlashCardMap and
      * Topic List
      */
-    public ReadFromFile() {
+    public FileHelper() {
         try {
 
             //Load Flash Card list from memory
@@ -47,17 +49,14 @@ public class ReadFromFile {
 
                     flashCardMap = (Map<String, ArrayList<FlashCard>>) ois.readObject();
 
-                    /**
-                     * Passes the map to NewFlashCard so it has all the elements
-                     * restored from memory.
-                     */
+                    //Set the list of NewFlashcard
                     NewFlashCard.setFlashCardList(flashCardMap);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
-                //Loop through the keys
+                //Loop through the keys and create a topic list
                 for (Object key : flashCardMap.keySet()) {
                     topicsMenu.add(key.toString());
                 }
@@ -77,12 +76,50 @@ public class ReadFromFile {
     }
 
     /**
-     *  Gives external access to a list of topics
+     * Gives external access to a list of topics
      * @return a list of flashcard topics
      */
-   public ArrayList<String> getTopicsMenu() {
+    public ArrayList<String> getTopicsMenu() {
         return topicsMenu;
     }
 
+    /**
+     * This method will be responsible for saving the data
+     * to the file
+     */
+    public void saveToFile(Map<String, ArrayList<FlashCard>> flashCardList) {
 
+        /** Creates a file in the application path obtained from
+         * the application context Android takes care of the context
+         */
+        File file = new File(filePath);
+
+        try {
+            FileOutputStream out = new FileOutputStream(file, false);
+            ObjectOutputStream oout = new ObjectOutputStream(out);
+
+            // Write the whole flashcard map in the file
+            oout.writeObject(flashCardList);
+            oout.flush();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * There was a need to convert the map to
+     * a list - this method provides that
+     * functionality
+     */
+    public ArrayList<FlashCard> convertToList(Map<String, ArrayList<FlashCard>> receivedMap) {
+
+        ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
+
+        // Loop through the map and set the list
+        for (Map.Entry<String, ArrayList<FlashCard>> entry : receivedMap.entrySet()) {
+            topicFlashcards = entry.getValue();
+        }
+        return topicFlashcards;
+    }
 }

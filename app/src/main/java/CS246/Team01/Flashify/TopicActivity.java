@@ -38,10 +38,19 @@ public class TopicActivity extends AppCompatActivity {
     @Override
     public void onRestart(){
         super.onRestart();
+        upDateContent();
+    }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        upDateContent();
+    }
+
+    private void upDateContent() {
         //Read from the file and get the updated map
-        ReadFromFile readFromFile = new ReadFromFile();
-        Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
+        FileHelper fileHelper = new FileHelper();
+        Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
 
         //get the correct object using the key=topic
         topicFlashcards = fileData.get(topic);
@@ -49,7 +58,6 @@ public class TopicActivity extends AppCompatActivity {
         //Update the content
         setContent();
     }
-
     public void setContent() {
         // Taylor removed redundant cast
         TextView topicTitle = findViewById(R.id.topicText);

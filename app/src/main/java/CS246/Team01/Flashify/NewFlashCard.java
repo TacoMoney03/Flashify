@@ -28,6 +28,7 @@ public class NewFlashCard extends AppCompatActivity {
     public ArrayList<FlashCard> topicFlashcards;
     private int index;
     private String saveMessage;
+    private FileHelper fileHelper = new FileHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,20 +109,20 @@ public class NewFlashCard extends AppCompatActivity {
         if (flashCardList.containsKey(topic)){
             if (_edit) {
                 System.out.println("Made it to _edit is true");
-                ReadFromFile readFromFile = new ReadFromFile();
-
                 //Converting the List into a Map
-                Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
+                Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
                 topicFlashcards.set(index, flashCard);
                 System.out.println(fileData);
                 //Replace the object to the update one
                 fileData.replace(topic, topicFlashcards);
                 System.out.println(fileData);
-                saveMessage = SaveToFile.writeToFile(this, flashCardList);
+                fileHelper.saveToFile(flashCardList);
+                saveMessage = "Flashcard Updated!";
             } else {
                 System.out.println("Made it to else from nested if");
                 Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
-                saveMessage = SaveToFile.writeToFile(this, flashCardList);
+                fileHelper.saveToFile(flashCardList);
+                saveMessage = "Saved Successfully!";
             }
         }
         else{
@@ -129,14 +130,9 @@ public class NewFlashCard extends AppCompatActivity {
             ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
-            saveMessage = SaveToFile.writeToFile(this, flashCardList);
+            fileHelper.saveToFile(flashCardList);
+            saveMessage = "Saved Successfully!";
         }
-
-
-
-
-
-        //Call the static saving method to list
 
 
         // The toast will let you know whether the saved was successful or not.

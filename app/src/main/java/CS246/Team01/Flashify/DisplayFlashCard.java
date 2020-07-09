@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -106,16 +105,16 @@ public class DisplayFlashCard extends AppCompatActivity {
         //Remove the index
         if (topicFlashcards.size() == 1) {
             //Instantiate the reading
-            ReadFromFile readFromFile = new ReadFromFile();
+            FileHelper fileHelper = new FileHelper();
 
             //Converting the List into a Map
-            Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
+            Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
 
             //remove the whole object
             fileData.remove(topicFlashcards.get(0).get_topic());
 
             //Update by saving to the file
-            SaveToFile.writeToFile2(this, fileData);
+            fileHelper.saveToFile(fileData);
 
             //Go back to main activity
             Intent intent = new Intent(this, MainActivity.class);
@@ -126,15 +125,15 @@ public class DisplayFlashCard extends AppCompatActivity {
             topicFlashcards.remove(index);
 
             //Instatiate the reading
-            ReadFromFile readFromFile = new ReadFromFile();
+            FileHelper fileHelper = new FileHelper();
 
             //Converting the List into a Map
-            Map<String, ArrayList<FlashCard>> fileData = readFromFile.getFlashCardMap();
+            Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
 
             //Replace the object to the update one
             fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
 
-            SaveToFile.writeToFile2(this, fileData);
+            fileHelper.saveToFile(fileData);
 
             nextCard(view);
         }

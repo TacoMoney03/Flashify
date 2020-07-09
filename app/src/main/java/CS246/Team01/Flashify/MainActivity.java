@@ -79,15 +79,15 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
 
         //Instantiate the reading file class
-        ReadFromFile readFromFile = new ReadFromFile();
+        FileHelper fileHelper = new FileHelper();
 
         //Set the flashCardMap
-        flashCardMap = readFromFile.getFlashCardMap();
+        flashCardMap = fileHelper.getFlashCardMap();
 
         //Set topic Menu
-        topicsMenu = readFromFile.getTopicsMenu();
+        topicsMenu = fileHelper.getTopicsMenu();
 
-        topicFlashcards = SaveToFile.convertToList(flashCardMap);
+        topicFlashcards = fileHelper.convertToList(flashCardMap);
 
         // Create a simple adapter to put the list into the list view
         menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, topicsMenu));
