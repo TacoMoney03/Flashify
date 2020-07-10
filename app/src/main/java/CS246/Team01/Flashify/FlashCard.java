@@ -54,24 +54,12 @@ public class FlashCard implements Parcelable, Serializable {
         return _topic;
     }
 
-    public void set_topic(String _topic) {
-        this._topic = _topic;
-    }
-
     String get_front() {
         return _front;
     }
 
-    public void set_front(String _front) {
-        this._front = _front;
-    }
-
     String get_back() {
         return _back;
-    }
-
-    public void set_back(String _back) {
-        this._back = _back;
     }
 
     // Converts the Flash Card to text.
