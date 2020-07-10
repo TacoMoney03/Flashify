@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,5 +175,8 @@ public class MainActivity extends AppCompatActivity {
         defaultMap.put("Biology", list2);
         FileHelper fileHelper = new FileHelper(null, this, null, null);
         fileHelper.saveToFile(defaultMap);
+        Toast toast = Toast.makeText(this,"Welcome to Flashify - to get started, add some flashcards", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }
