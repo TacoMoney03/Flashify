@@ -35,24 +35,28 @@ public class NewFlashCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flash_card);
         final Button saveButton = findViewById(R.id.saveButton);
-
+        //instantiate FileHelper with context this for newFlashCard and null for the rest of the parameters
         fileHelper = new FileHelper(null, null, this, null);
-
+        //get the text from the EditText's and assign to variables
         EditText topicText = findViewById(R.id.topicText);
         EditText frontText = findViewById(R.id.frontText);
         EditText backText = findViewById(R.id.backText);
+        //get values from intent
         Intent intent = getIntent();
+        //These only come from DisplayFlashCard
         String _topic = intent.getStringExtra("TOPIC");
         String _front = intent.getStringExtra("FRONT");
         String _back = intent.getStringExtra("BACK");
-        _edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
         index = getIntent().getIntExtra("INDEX", 0);
-        System.out.println(topicFlashcards);
-        System.out.println(index);
+        //this value comes as TRUE from DisplayFlashCard and FALSE from MainActivity
+        //this lets us change the behavior of this page if we are editing versus creating a new card from scratch
+        _edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
+        //set the EditText's with the topic, front, and back values received from DisplayFlashCard
         topicText.setText(_topic);
         frontText.setText(_front);
         backText.setText(_back);
+        //if the topic text equals the current topic, enable the save button, otherwise leave it disabled
             if(topicText.getText().toString().equals(_topic)){
                 saveButton.setEnabled(false);
             } saveButton.setEnabled(true);
@@ -109,6 +113,7 @@ public class NewFlashCard extends AppCompatActivity {
         will be added to the new list
         */
         if (flashCardList.containsKey(topic)){
+            //if _edit is true aka we are coming from DisplayFlashCard and want to edit the current flashcard
             if (_edit) {
                 //Converting the List into a Map
                 Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
@@ -117,7 +122,9 @@ public class NewFlashCard extends AppCompatActivity {
                 fileData.replace(topic, topicFlashcards);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Flashcard Updated!";
-            } else {
+            }
+            //else we are creating a brand new flashcard
+            else {
                 Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Saved Successfully!";
