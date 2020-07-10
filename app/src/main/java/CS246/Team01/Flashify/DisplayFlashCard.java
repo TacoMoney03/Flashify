@@ -25,27 +25,62 @@ public class DisplayFlashCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_flash_card);
 
-        //get the index being received
-        Intent intent = getIntent();
         index = getIntent().getIntExtra("INDEX", 0);
+        //Getting the list
+        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
 
         setCardText();
         backView.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     *
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        upDateView();
+    }
+
+    /**
+    *
+     * */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        upDateView();
+    }
+
+    /**
+     *
+     */
+    private void upDateView() {
+        FileHelper fileHelper = new FileHelper(this, null, null, null);
+        System.out.println(topicFlashcards);
+
+        topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
+
+        System.out.println(topicFlashcards);
+
+        setCardText();
+    }
     public void setCardText() {
+
+
+
         // grab all views by ID on create
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
 
         System.out.println(index);
 
-        //Getting the list
-        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+
 
         // set the flashcard front to show "front" and the flashcard back to show "back"
         frontView.setText(topicFlashcards.get(index).get_front());
         backView.setText(topicFlashcards.get(index).get_back());
+
+        System.out.println(topicFlashcards);
 
     }
 

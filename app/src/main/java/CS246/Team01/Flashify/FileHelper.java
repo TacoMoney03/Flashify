@@ -32,9 +32,16 @@ public class FileHelper extends AppCompatActivity {
      * This Method is responsible for reading the data from
      * the file and converting them to the FlashCardMap and
      * Topic List
+     * @param display  = Display flashcard Activity
+     * @param main = Main activity
+     * @param newFlashCard = NewFlashCard activity
+     * @param topics = The list of topics activity
      */
     public FileHelper(DisplayFlashCard display, MainActivity main, NewFlashCard newFlashCard, TopicActivity topics) {
 
+        /**
+         * Get the parametes and check where the activity is coming from so
+         */
         if (display != null) { filePath = display.getBaseContext().getFilesDir(); }
         if (main != null) { filePath = main.getBaseContext().getFilesDir(); }
         if (newFlashCard != null) { filePath = newFlashCard.getBaseContext().getFilesDir(); }

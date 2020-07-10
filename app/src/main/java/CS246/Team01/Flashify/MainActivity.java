@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void preloadFlashCards() {
+    private void preloadFlashCards() {
         FlashCard demo1 = new FlashCard("English", "Quiz", "Quick test of knowledge");
         FlashCard demo2 = new FlashCard("English", "Afraid", "Impressed with fear or apprehension");
         FlashCard demo3 = new FlashCard("English", "Dead", "No longer living");
@@ -173,5 +173,4 @@ public class MainActivity extends AppCompatActivity {
         FileHelper fileHelper = new FileHelper(null, this, null, null);
         fileHelper.saveToFile(defaultMap);
     }
-
 }
