@@ -22,7 +22,6 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="perform_action"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
@@ -49,7 +48,6 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:onClick="perform_action"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
@@ -66,7 +64,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#455a64"
         android:onClick="nextCard"
-        android:text="Next"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -78,7 +76,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="#455a64"
         android:onClick="previousCard"
-        android:text="Previous"
+        android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -107,7 +105,7 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#455a64"
         android:onClick="editCard"
-        android:text="Edit"
+        android:text="@string/edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
