@@ -38,23 +38,21 @@ public class TopicActivity extends AppCompatActivity {
     @Override
     public void onRestart(){
         super.onRestart();
-        upDateContent();
+        updateContent();
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        upDateContent();
+        updateContent();
     }
 
-    private void upDateContent() {
+    private void updateContent() {
         //Read from the file and get the updated map
         FileHelper fileHelper = new FileHelper(null, null, null, this);
         Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
-
         //get the correct object using the key=topic
         topicFlashcards = fileData.get(topic);
-
         //Update the content
         setContent();
     }
@@ -89,20 +87,14 @@ public class TopicActivity extends AppCompatActivity {
     public void viewCard(String front, String back, int index) {
         // Create the intent
         Intent intent = new Intent (this, DisplayFlashCard.class);
-
         //pass the list
         intent.putExtra("mylist", topicFlashcards);
-
         // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
-
         //Get the proper Index and pass it
         intent.putExtra("INDEX", index);
-
-
         startActivity(intent);
-
     }
 
 
