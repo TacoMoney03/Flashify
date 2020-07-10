@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class DisplayFlashCard extends AppCompatActivity {
     private TextView frontView;
@@ -21,6 +22,7 @@ public class DisplayFlashCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_flash_card);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get the index from the intent
         index = getIntent().getIntExtra("INDEX", 0);
         //Getting the list
@@ -29,6 +31,12 @@ public class DisplayFlashCard extends AppCompatActivity {
         setCardText();
         //Set the backside's text view to be invisible
         backView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     /**
