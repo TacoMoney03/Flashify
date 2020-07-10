@@ -15,7 +15,7 @@ import java.util.Map;
  * This Class is responsible for reading data from the
  * file that is stored in the phone, This must be instantiated
  * when used. It gives access List of Topics and a Map of flashcards
- * cotaining key = topic and a value = List of object (FlashCard)
+ * containing key = topic and a value = List of object (FlashCard)
  */
 public class FileHelper extends AppCompatActivity {
 
@@ -105,7 +105,8 @@ public class FileHelper extends AppCompatActivity {
      */
     public void saveToFile(Map<String, ArrayList<FlashCard>> flashCardList) {
 
-        /** Creates a file in the application path obtained from
+        /**
+         * Creates a file in the application path obtained from
          * the application context Android takes care of the context
          */
         File file = new File(filePath,  "flashCards.dat");

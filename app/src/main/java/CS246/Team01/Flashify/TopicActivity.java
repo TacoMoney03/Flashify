@@ -59,7 +59,6 @@ public class TopicActivity extends AppCompatActivity {
         setContent();
     }
     public void setContent() {
-        // Taylor removed redundant cast
         TextView topicTitle = findViewById(R.id.topicText);
         topicTitle.setText(topic); //Display the value from the previously selected "TOPIC" key
 

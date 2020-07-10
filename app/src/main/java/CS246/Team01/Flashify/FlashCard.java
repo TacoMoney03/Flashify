@@ -13,14 +13,12 @@ public class FlashCard implements Parcelable, Serializable {
     private String _front;
     private  String _back;
 
-    // Taylor changed to private
     FlashCard(String topic, String front, String back) {
         _topic = topic;
         _front = front;
         _back = back;
     }
 
-    // Taylor changed to private
     private FlashCard(Parcel in) {
         _topic = in.readString();
         _front = in.readString();
@@ -60,7 +58,6 @@ public class FlashCard implements Parcelable, Serializable {
         this._topic = _topic;
     }
 
-    // Taylor changed to private
     String get_front() {
         return _front;
     }
@@ -69,7 +66,6 @@ public class FlashCard implements Parcelable, Serializable {
         this._front = _front;
     }
 
-    // Taylor changed to private
     String get_back() {
         return _back;
     }

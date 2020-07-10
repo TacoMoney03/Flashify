@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             // first time task
 
             // record the fact that the app has been started at least once
-            settings.edit().putBoolean("my_first_time", false).commit();
+            settings.edit().putBoolean("my_first_time", false).apply();
         }
 
         ArrayList<String> topicsMenu;

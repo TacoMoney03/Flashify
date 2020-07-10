@@ -39,7 +39,7 @@ public class DisplayFlashCard extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        upDateView();
+        updateView();
     }
 
     /**
@@ -48,39 +48,28 @@ public class DisplayFlashCard extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        upDateView();
+        updateView();
     }
 
     /**
      *
      */
-    private void upDateView() {
+    private void updateView() {
         FileHelper fileHelper = new FileHelper(this, null, null, null);
-        System.out.println(topicFlashcards);
 
         topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
-
-        System.out.println(topicFlashcards);
 
         setCardText();
     }
     public void setCardText() {
 
-
-
         // grab all views by ID on create
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
 
-        System.out.println(index);
-
-
-
         // set the flashcard front to show "front" and the flashcard back to show "back"
         frontView.setText(topicFlashcards.get(index).get_front());
         backView.setText(topicFlashcards.get(index).get_back());
-
-        System.out.println(topicFlashcards);
 
     }
 
@@ -159,7 +148,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         } else  {
             topicFlashcards.remove(index);
 
-            //Instatiate the reading
+            //Instantiate the reading
             FileHelper fileHelper = new FileHelper(this, null, null, null);
 
             //Converting the List into a Map
@@ -179,7 +168,6 @@ public class DisplayFlashCard extends AppCompatActivity {
         String _topic = topicFlashcards.get(index).get_topic();
         String _front = topicFlashcards.get(index).get_front();
         String _back = topicFlashcards.get(index).get_back();
-        System.out.println("topic = " + _topic + " front = " + _front + " back = " + _back);
         Intent intent = new Intent(this, NewFlashCard.class);
         intent.putExtra("TOPIC", _topic);
         intent.putExtra("FRONT", _front);
@@ -188,6 +176,5 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("mylist", topicFlashcards);
         intent.putExtra("INDEX", index);
         startActivity(intent);
-        //deleteCard(view);
     }
 }

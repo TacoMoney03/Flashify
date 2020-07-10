@@ -110,25 +110,20 @@ public class NewFlashCard extends AppCompatActivity {
         */
         if (flashCardList.containsKey(topic)){
             if (_edit) {
-                System.out.println("Made it to _edit is true");
                 //Converting the List into a Map
                 Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
                 topicFlashcards.set(index, flashCard);
-                System.out.println(fileData);
                 //Replace the object to the update one
                 fileData.replace(topic, topicFlashcards);
-                System.out.println(fileData);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Flashcard Updated!";
             } else {
-                System.out.println("Made it to else from nested if");
                 Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Saved Successfully!";
             }
         }
         else{
-            System.out.println("Made it to final else");
             ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
