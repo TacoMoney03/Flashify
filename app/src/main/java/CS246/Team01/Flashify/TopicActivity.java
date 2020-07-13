@@ -85,7 +85,6 @@ public class TopicActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Call the new topic activity creating function passing the element tapped
                 viewCard(topicFlashcards.get(position).get_front(), topicFlashcards.get(position).get_back(), position);
-                System.out.println(position);
             }
         });
     }
