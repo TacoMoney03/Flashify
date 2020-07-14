@@ -150,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * prealoadFlashCards will take care of the preloading some
+     * flashcard when the user is using the flashcard for the
+     * first time | Once they delete them. They will be not showed again
+     */
     private void preloadFlashCards() {
         FlashCard demo1 = new FlashCard("English", "Quiz", "Quick test of knowledge");
         FlashCard demo2 = new FlashCard("English", "Afraid", "Impressed with fear or apprehension");

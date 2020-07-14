@@ -40,7 +40,8 @@ public class FileHelper extends AppCompatActivity {
     public FileHelper(DisplayFlashCard display, MainActivity main, NewFlashCard newFlashCard, TopicActivity topics) {
 
         /**
-         * Get the parametes and check where the activity is coming from so
+         * Get the parameters and check where the activity is coming from so
+         * so the path is set depending on the content
          */
         if (display != null) { filePath = display.getBaseContext().getFilesDir(); }
         if (main != null) { filePath = main.getBaseContext().getFilesDir(); }

@@ -11,58 +11,94 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This class is responsible for setting the activity
+ * that will be displayed to user so they can see
+ * the flash card on the screen
+ */
 public class DisplayFlashCard extends AppCompatActivity {
+    /**
+     * frontView = Holds the indo of the Front of the FlashCard
+     * backView = Holds the info of the back of the FlashCard
+     * topicFlashCards = A list of objects = FlashCard that to be manipulated in this acctivity
+     * index = the index of the items in the list to be manipulated
+     */
     private TextView frontView;
     private TextView backView;
     private ArrayList<FlashCard> topicFlashcards;
     private int index = 0;
 
+    /**
+     * Method onCreat is called on creation to set
+     * the view of the flashcard and call the proper methods
+     * @param savedInstanceState = Default passed on the creation
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Set the content view of the flashcard with the passed layout
         setContentView(R.layout.activity_display_flash_card);
+
         //Get the index from the intent
         index = getIntent().getIntExtra("INDEX", 0);
+
         //Getting the list
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+
         //Call setCardText method to display the appropriate content on the flashcard
         setCardText();
+
         //Set the backside's text view to be invisible
         backView.setVisibility(View.INVISIBLE);
     }
 
     /**
-     *
+     * Updates the view on Restart
      */
     @Override
     protected void onRestart() {
         super.onRestart();
+
         //Use updateView method to refresh the page when viewed through back button
         updateView();
     }
 
     /**
-    *
-     * */
+    * Updates the view on Resume
+    */
     @Override
     protected void onPostResume() {
         super.onPostResume();
+
         //Use updateView method to refresh the page when viewed through back button
         updateView();
     }
 
     /**
-     *
+     * The Updates method reread the file
+     * to get the latest updated information
+     * before set the display
      */
     private void updateView() {
+
         //Since we are on DisplayFlashCard, set the context to this, and pass null for other context values
         FileHelper fileHelper = new FileHelper(this, null, null, null);
+
         //Load the flashcards from the file
         topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
+
         //Call setCardText again to get the right values
         setCardText();
     }
-    public void setCardText() {
+
+    /**
+     * Set the view by changing the content
+     * that interacts with the user this
+     * method is called everytime there is a need
+     * to display or the user flashcards
+     */
+    private void setCardText() {
         // grab all views by ID on create
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
@@ -72,23 +108,29 @@ public class DisplayFlashCard extends AppCompatActivity {
         backView.setText(topicFlashcards.get(index).get_back());
     }
 
-    // The .xml file is modified to use this view.
-    //Used to "flip" the card from front to back/back to front
-    public void perform_action(View v)
+    /**
+     * The view of the client (.xml file) to use this view.
+     * Used to "flip" the card from front to back/back to front
+     * @param view = user interface button
+     */
+    public void perform_action(View view)
     {
+        //Sets back to invisible and front to visible
         if (View.INVISIBLE == frontView.getVisibility()){
-            //Sets back to invisible and front to visible
             backView.setVisibility(View.INVISIBLE);
             frontView.setVisibility(View.VISIBLE);
         }
+        //Sets front to invisible and back to visible
         else{
-            //Sets front to invisible and back to visible
             frontView.setVisibility(View.INVISIBLE);
             backView.setVisibility(View.VISIBLE);
         }
     }
 
-    //Method to navigate to the next card in the list
+    /**
+     *
+     * @param view = user interface button
+     */
     public void nextCard(View view) {
         //If the index is greater than 1
         if(!(index >= topicFlashcards.size() - 1 )) {
