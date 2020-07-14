@@ -9,4 +9,6 @@
     <string name="enter_the_front_side">Enter the front side</string>
     <string name="enter_the_back_side">Enter the back side</string>
     <string name="save">SAVE</string>
+    <string name="search">SEARCH</string>
+    <string name="search2">Search</string>
 </resources>

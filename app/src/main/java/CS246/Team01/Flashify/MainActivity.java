@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -183,4 +186,15 @@ public class MainActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
+    public void search(View view){
+        System.out.println("Made it into search call from main");
+        Intent intent = new Intent(this, WordSearch.class);
+        System.out.println("made the intent");
+        intent.putExtra("map", (Serializable) flashCardMap);
+        System.out.println("put the map into the intent");
+        startActivity(intent);
+        System.out.println("started the search activity");
+    }
+
 }

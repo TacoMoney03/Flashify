@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WordSearch"></activity>
         <activity
             android:name=".NewFlashCard"
             android:parentActivityName=".MainActivity">
@@ -27,10 +28,8 @@
         </activity>
         <activity
             android:name=".TopicActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
-        <activity android:name=".FlashCardDisplay">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".FlashCardDisplay"></activity>
     </application>
 
 </manifest>
