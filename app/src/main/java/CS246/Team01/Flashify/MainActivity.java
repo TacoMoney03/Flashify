@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         menu = findViewById(R.id.menu);
 
         //Instantiate the reading file class
-        FileHelper fileHelper = new FileHelper(null, this, null, null);
+        FileHelper fileHelper = new FileHelper(this);
 
         //Set the flashCardMap
         flashCardMap = fileHelper.getFlashCardMap();
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, ArrayList<FlashCard>> defaultMap = new HashMap<>();
         defaultMap.put("English", list1);
         defaultMap.put("Biology", list2);
-        FileHelper fileHelper = new FileHelper(null, this, null, null);
+        FileHelper fileHelper = new FileHelper(this);
         fileHelper.saveToFile(defaultMap);
         Toast toast = Toast.makeText(this,"Welcome to Flashify - to get started, add some flashcards", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);

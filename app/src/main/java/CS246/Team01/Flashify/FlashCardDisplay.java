@@ -78,7 +78,7 @@ public class FlashCardDisplay extends AppCompatActivity {
      */
     private void updateView() {
         //Since we are on FlashCardDisplay, set the context to this, and pass null for other context values
-        FileHelper fileHelper = new FileHelper(this, null, null, null);
+        FileHelper fileHelper = new FileHelper(this);
 
         //Load the flashcards from the file
         topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
@@ -177,7 +177,7 @@ public class FlashCardDisplay extends AppCompatActivity {
         //Remove the index
         if (topicFlashcards.size() == 1) {
             //Instantiate the reading
-            FileHelper fileHelper = new FileHelper(this, null, null, null);
+            FileHelper fileHelper = new FileHelper(this);
 
             //Converting the List into a Map
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
@@ -195,7 +195,7 @@ public class FlashCardDisplay extends AppCompatActivity {
             topicFlashcards.remove(index);
 
             //Instantiate the reading
-            FileHelper fileHelper = new FileHelper(this, null, null, null);
+            FileHelper fileHelper = new FileHelper(this);
 
             //Converting the List into a Map
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();

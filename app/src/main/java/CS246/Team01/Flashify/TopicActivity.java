@@ -56,7 +56,7 @@ public class TopicActivity extends AppCompatActivity {
 
     private void updateContent() {
         //Read from the file and get the updated map
-        FileHelper fileHelper = new FileHelper(null, null, null, this);
+        FileHelper fileHelper = new FileHelper(this);
         Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
         //get the correct object using the key=topic
         topicFlashcards = fileData.get(topic);

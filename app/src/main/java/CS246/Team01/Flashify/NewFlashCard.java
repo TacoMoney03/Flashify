@@ -36,7 +36,7 @@ public class NewFlashCard extends AppCompatActivity {
         setContentView(R.layout.activity_new_flash_card);
         final Button saveButton = findViewById(R.id.saveButton);
         //instantiate FileHelper with context this for newFlashCard and null for the rest of the parameters
-        fileHelper = new FileHelper(null, null, this, null);
+        fileHelper = new FileHelper(this);
         //get the text from the EditText's and assign to variables
         EditText topicText = findViewById(R.id.topicText);
         EditText frontText = findViewById(R.id.frontText);
