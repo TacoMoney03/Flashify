@@ -14,7 +14,7 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="newFlashCardView"
+        android:onClick="createNewFlashCard"
         android:src="@android:drawable/ic_menu_add"
         app:backgroundTint="#546e7a "
         app:fabCustomSize="38dp"

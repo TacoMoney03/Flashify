@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 Object topicItem = menu.getItemAtPosition(position);
 
                 // Call the new topic activity creating function passing the element tapped
-                newTopicView(topicItem.toString());
+                setTopicView(topicItem.toString());
             }
         });
     }
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
      *  This method will call the createFlashCard activity when
      *  the user taps the "Add Flash Card" button
      */
-    public void newFlashCardView(View view){
+    public void createNewFlashCard(View view){
         //Create intent
         Intent intent = new Intent (this, NewFlashCard.class);
         intent.putExtra("EDIT", false);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
      * topic and a set of flashcards that belongs to it
      * @param topic  A String that holds the topic to be presented on the next activity
      */
-    private void newTopicView(String topic){
+    private void setTopicView(String topic){
         // Get the flashcards list corresponding to the topic
         ArrayList<FlashCard> topicFlashcards = flashCardMap.get(topic);
 

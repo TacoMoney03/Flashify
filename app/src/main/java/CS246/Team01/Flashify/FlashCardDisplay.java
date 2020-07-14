@@ -82,7 +82,7 @@ public class FlashCardDisplay extends AppCompatActivity {
 
     // The .xml file is modified to use this view.
     //Used to "flip" the card from front to back/back to front
-    public void perform_action(View v)
+    public void performAction(View view)
     {
         if (View.INVISIBLE == frontView.getVisibility()){
             //Sets back to invisible and front to visible
@@ -97,7 +97,7 @@ public class FlashCardDisplay extends AppCompatActivity {
     }
 
     //Method to navigate to the next card in the list
-    public void nextCard(View view) {
+    public void goNextCard(View view) {
         //If the index is greater than 1
         if(!(index >= topicFlashcards.size() - 1 )) {
             //increment the index
@@ -125,8 +125,8 @@ public class FlashCardDisplay extends AppCompatActivity {
     }
 
     //method for going to the previous card using the previous button
-    //works the same as the nextCard method except in reverse
-    public void previousCard(View view) {
+    //works the same as the goNextCard method except in reverse
+    public void goPreviousCard(View view) {
         if(!(index <= 0 )) {
             --index;
             setCardText();
@@ -180,8 +180,8 @@ public class FlashCardDisplay extends AppCompatActivity {
             //Replace the object to the update one
             fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
             fileHelper.saveToFile(fileData);
-            //Call the nextCard so that something else shows up after the card is deleted
-            nextCard(view);
+            //Call the goNextCard so that something else shows up after the card is deleted
+            goNextCard(view);
         }
     }
 
