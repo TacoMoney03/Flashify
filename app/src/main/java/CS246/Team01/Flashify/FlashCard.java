@@ -9,27 +9,27 @@ import java.io.Serializable;
 // The FlashCard class needs to implement "Parcelable" so the main activity can pass it
 // to TopicActivity
 public class FlashCard implements Parcelable, Serializable {
-    private String _topic;
-    private String _front;
-    private  String _back;
+    private String topic;
+    private String front;
+    private  String back;
 
     FlashCard(String topic, String front, String back) {
-        _topic = topic;
-        _front = front;
-        _back = back;
+        this.topic = topic;
+        this.front = front;
+        this.back = back;
     }
 
     private FlashCard(Parcel in) {
-        _topic = in.readString();
-        _front = in.readString();
-        _back = in.readString();
+        topic = in.readString();
+        front = in.readString();
+        back = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(_topic);
-        dest.writeString(_front);
-        dest.writeString(_back);
+        dest.writeString(topic);
+        dest.writeString(front);
+        dest.writeString(back);
     }
 
     // Parcelable class implementation
@@ -50,22 +50,22 @@ public class FlashCard implements Parcelable, Serializable {
         }
     };
 
-    String get_topic() {
-        return _topic;
+    String getTopic() {
+        return topic;
     }
 
-    String get_front() {
-        return _front;
+    String getFront() {
+        return front;
     }
 
-    String get_back() {
-        return _back;
+    String getBack() {
+        return back;
     }
 
     // Converts the Flash Card to text.
     @Override
     public String toString(){
-        return "[" + _topic + "," + _front + "," + _back + "]";
+        return "[" + topic + "," + front + "," + back + "]";
     }
 
 

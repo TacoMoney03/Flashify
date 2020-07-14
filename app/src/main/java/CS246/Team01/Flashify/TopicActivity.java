@@ -72,7 +72,7 @@ public class TopicActivity extends AppCompatActivity {
 
         // Get the front text from all the flashcards in the list and place in the new fronts list.
         for(int i = 0; i < topicFlashcards.size(); i++){
-            fronts.add(topicFlashcards.get(i).get_front());
+            fronts.add(topicFlashcards.get(i).getFront());
         }
 
         // Get the list view where the flashcards will be displayed
@@ -84,7 +84,7 @@ public class TopicActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Call the new topic activity creating function passing the element tapped
-                viewCard(topicFlashcards.get(position).get_front(), topicFlashcards.get(position).get_back(), position);
+                viewCard(topicFlashcards.get(position).getFront(), topicFlashcards.get(position).getBack(), position);
             }
         });
     }
@@ -94,7 +94,7 @@ public class TopicActivity extends AppCompatActivity {
         // Create the intent
         Intent intent = new Intent (this, FlashCardDisplay.class);
         //pass the list
-        intent.putExtra("mylist", topicFlashcards);
+        intent.putExtra("MYLIST", topicFlashcards);
         // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
