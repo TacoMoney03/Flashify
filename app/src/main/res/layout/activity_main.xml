@@ -11,17 +11,17 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:clickable="true"
-        android:onClick="newFlashCardView"
+        android:focusable="true"
+        android:onClick="createNewFlashCard"
         android:src="@android:drawable/ic_menu_add"
         app:backgroundTint="#546e7a "
-        app:fabCustomSize="25dp"
+        app:fabCustomSize="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/topicText"

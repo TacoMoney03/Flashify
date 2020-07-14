@@ -10,19 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
-/**
- * This class is responsible for setting the activity
- * that will be displayed to user so they can see
- * the flash card on the screen
- */
-public class DisplayFlashCard extends AppCompatActivity {
-    /**
-     * frontView = Holds the indo of the Front of the FlashCard
-     * backView = Holds the info of the back of the FlashCard
-     * topicFlashCards = A list of objects = FlashCard that to be manipulated in this acctivity
-     * index = the index of the items in the list to be manipulated
-     */
+public class FlashCardDisplay extends AppCompatActivity {
     private TextView frontView;
     private TextView backView;
     private ArrayList<FlashCard> topicFlashcards;
@@ -39,7 +29,7 @@ public class DisplayFlashCard extends AppCompatActivity {
 
         //Set the content view of the flashcard with the passed layout
         setContentView(R.layout.activity_display_flash_card);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get the index from the intent
         index = getIntent().getIntExtra("INDEX", 0);
 
@@ -51,6 +41,12 @@ public class DisplayFlashCard extends AppCompatActivity {
 
         //Set the backside's text view to be invisible
         backView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     /**
@@ -81,8 +77,7 @@ public class DisplayFlashCard extends AppCompatActivity {
      * before set the display
      */
     private void updateView() {
-
-        //Since we are on DisplayFlashCard, set the context to this, and pass null for other context values
+        //Since we are on FlashCardDisplay, set the context to this, and pass null for other context values
         FileHelper fileHelper = new FileHelper(this, null, null, null);
 
         //Load the flashcards from the file
@@ -108,12 +103,9 @@ public class DisplayFlashCard extends AppCompatActivity {
         backView.setText(topicFlashcards.get(index).get_back());
     }
 
-    /**
-     * The view of the client (.xml file) to use this view.
-     * Used to "flip" the card from front to back/back to front
-     * @param view = user interface button
-     */
-    public void perform_action(View view)
+    // The .xml file is modified to use this view.
+    //Used to "flip" the card from front to back/back to front
+    public void performAction(View view)
     {
         //Sets back to invisible and front to visible
         if (View.INVISIBLE == frontView.getVisibility()){
@@ -127,11 +119,8 @@ public class DisplayFlashCard extends AppCompatActivity {
         }
     }
 
-    /**
-     *
-     * @param view = user interface button
-     */
-    public void nextCard(View view) {
+    //Method to navigate to the next card in the list
+    public void goNextCard(View view) {
         //If the index is greater than 1
         if(!(index >= topicFlashcards.size() - 1 )) {
             //increment the index
@@ -159,8 +148,8 @@ public class DisplayFlashCard extends AppCompatActivity {
     }
 
     //method for going to the previous card using the previous button
-    //works the same as the nextCard method except in reverse
-    public void previousCard(View view) {
+    //works the same as the goNextCard method except in reverse
+    public void goPreviousCard(View view) {
         if(!(index <= 0 )) {
             --index;
             setCardText();
@@ -214,8 +203,8 @@ public class DisplayFlashCard extends AppCompatActivity {
             //Replace the object to the update one
             fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
             fileHelper.saveToFile(fileData);
-            //Call the nextCard so that something else shows up after the card is deleted
-            nextCard(view);
+            //Call the goNextCard so that something else shows up after the card is deleted
+            goNextCard(view);
         }
     }
 
@@ -235,7 +224,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("mylist", topicFlashcards);
         intent.putExtra("INDEX", index);
         //put a boolean with value true into the intent
-        //this is used on the NewFlashCard class to tell whether we come to that page from MainActivity or DisplayFlashCard
+        //this is used on the NewFlashCard class to tell whether we come to that page from MainActivity or FlashCardDisplay
         intent.putExtra("EDIT", true);
         //start the new activity
         startActivity(intent);

@@ -43,16 +43,16 @@ public class NewFlashCard extends AppCompatActivity {
         EditText backText = findViewById(R.id.backText);
         //get values from intent
         Intent intent = getIntent();
-        //These only come from DisplayFlashCard
+        //These only come from FlashCardDisplay
         String _topic = intent.getStringExtra("TOPIC");
         String _front = intent.getStringExtra("FRONT");
         String _back = intent.getStringExtra("BACK");
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
         index = getIntent().getIntExtra("INDEX", 0);
-        //this value comes as TRUE from DisplayFlashCard and FALSE from MainActivity
+        //this value comes as TRUE from FlashCardDisplay and FALSE from MainActivity
         //this lets us change the behavior of this page if we are editing versus creating a new card from scratch
         _edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
-        //set the EditText's with the topic, front, and back values received from DisplayFlashCard
+        //set the EditText's with the topic, front, and back values received from FlashCardDisplay
         topicText.setText(_topic);
         frontText.setText(_front);
         backText.setText(_back);
@@ -113,7 +113,7 @@ public class NewFlashCard extends AppCompatActivity {
         will be added to the new list
         */
         if (flashCardList.containsKey(topic)){
-            //if _edit is true aka we are coming from DisplayFlashCard and want to edit the current flashcard
+            //if _edit is true aka we are coming from FlashCardDisplay and want to edit the current flashcard
             if (_edit) {
                 //Converting the List into a Map
                 Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();

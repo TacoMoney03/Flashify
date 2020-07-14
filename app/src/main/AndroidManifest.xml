@@ -29,7 +29,7 @@
             android:name=".TopicActivity"
             android:parentActivityName=".MainActivity">
         </activity>
-        <activity android:name=".DisplayFlashCard">
+        <activity android:name=".FlashCardDisplay">
         </activity>
     </application>
 

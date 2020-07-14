@@ -37,7 +37,7 @@ public class FileHelper extends AppCompatActivity {
      * @param newFlashCard = NewFlashCard activity
      * @param topics = The list of topics activity
      */
-    public FileHelper(DisplayFlashCard display, MainActivity main, NewFlashCard newFlashCard, TopicActivity topics) {
+    public FileHelper(FlashCardDisplay display, MainActivity main, NewFlashCard newFlashCard, TopicActivity topics) {
 
         /**
          * Get the parameters and check where the activity is coming from so

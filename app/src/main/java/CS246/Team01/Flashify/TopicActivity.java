@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class TopicActivity extends AppCompatActivity {
     public ListView frontsList;
@@ -21,7 +22,7 @@ public class TopicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
-
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get the topic activity intent so we can get the topic string and the FlashCard ArrayList
         Intent intent = getIntent();
         topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
@@ -29,6 +30,12 @@ public class TopicActivity extends AppCompatActivity {
 
         //Call the content setting method
         setContent();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     /*
@@ -78,7 +85,6 @@ public class TopicActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Call the new topic activity creating function passing the element tapped
                 viewCard(topicFlashcards.get(position).get_front(), topicFlashcards.get(position).get_back(), position);
-                System.out.println(position);
             }
         });
     }
@@ -86,7 +92,7 @@ public class TopicActivity extends AppCompatActivity {
     // method to call next activity to view flashcards
     public void viewCard(String front, String back, int index) {
         // Create the intent
-        Intent intent = new Intent (this, DisplayFlashCard.class);
+        Intent intent = new Intent (this, FlashCardDisplay.class);
         //pass the list
         intent.putExtra("mylist", topicFlashcards);
         // Pass the strings into the intent
