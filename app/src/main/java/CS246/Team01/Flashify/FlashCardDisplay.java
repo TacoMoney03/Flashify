@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
-public class DisplayFlashCard extends AppCompatActivity {
+public class FlashCardDisplay extends AppCompatActivity {
     private TextView frontView;
     private TextView backView;
     private ArrayList<FlashCard> topicFlashcards;
@@ -63,7 +63,7 @@ public class DisplayFlashCard extends AppCompatActivity {
      *
      */
     private void updateView() {
-        //Since we are on DisplayFlashCard, set the context to this, and pass null for other context values
+        //Since we are on FlashCardDisplay, set the context to this, and pass null for other context values
         FileHelper fileHelper = new FileHelper(this, null, null, null);
         //Load the flashcards from the file
         topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
@@ -201,7 +201,7 @@ public class DisplayFlashCard extends AppCompatActivity {
         intent.putExtra("mylist", topicFlashcards);
         intent.putExtra("INDEX", index);
         //put a boolean with value true into the intent
-        //this is used on the NewFlashCard class to tell whether we come to that page from MainActivity or DisplayFlashCard
+        //this is used on the NewFlashCard class to tell whether we come to that page from MainActivity or FlashCardDisplay
         intent.putExtra("EDIT", true);
         //start the new activity
         startActivity(intent);

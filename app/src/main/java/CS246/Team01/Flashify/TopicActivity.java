@@ -92,7 +92,7 @@ public class TopicActivity extends AppCompatActivity {
     // method to call next activity to view flashcards
     public void viewCard(String front, String back, int index) {
         // Create the intent
-        Intent intent = new Intent (this, DisplayFlashCard.class);
+        Intent intent = new Intent (this, FlashCardDisplay.class);
         //pass the list
         intent.putExtra("mylist", topicFlashcards);
         // Pass the strings into the intent
