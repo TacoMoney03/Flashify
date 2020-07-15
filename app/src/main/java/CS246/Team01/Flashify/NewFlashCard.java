@@ -1,5 +1,3 @@
-
-// This class will create and save all new Flash Cards.
 package CS246.Team01.Flashify;
 
 import android.content.Intent;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
@@ -19,13 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ *
+ */
 public class NewFlashCard extends AppCompatActivity {
 
     /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
     pass a reference to the map in main without a pointer. This has room for improvement*/
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
-    Boolean edit;
-    public ArrayList<FlashCard> topicFlashcards;
+    private Boolean edit;
+    private ArrayList<FlashCard> topicFlashcards;
     private int index;
     private String saveMessage;
     private FileHelper fileHelper;
@@ -34,6 +34,7 @@ public class NewFlashCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flash_card);
+
         final Button saveButton = findViewById(R.id.saveButton);
         //instantiate FileHelper with context this for newFlashCard and null for the rest of the parameters
         fileHelper = new FileHelper(this);

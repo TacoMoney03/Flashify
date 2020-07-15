@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
      *  the user taps the "Add Flash Card" button
      */
     public void createNewFlashCard(View view){
-        //Create intent
+
+        //Create intent and start a new intent
         Intent intent = new Intent (this, NewFlashCard.class);
         intent.putExtra("EDIT", false);
         startActivity(intent);
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
      * @param topic  A String that holds the topic to be presented on the next activity
      */
     private void setTopicView(String topic){
+
         // Get the flashcards list corresponding to the topic
         ArrayList<FlashCard> topicFlashcards = flashCardMap.get(topic);
 
@@ -195,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view used in android to interact with the UI
      */
     public void search(View view){
+
+        //Create and start a new intent with the Search functionality
         Intent intent = new Intent(this, WordSearch.class);
         intent.putExtra("MAP", (Serializable) flashCardMap);
         startActivity(intent);
