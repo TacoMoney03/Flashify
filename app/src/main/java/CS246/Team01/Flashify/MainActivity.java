@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * prealoadFlashCards will take care of the preloading some
+     * PrealoadFlashCards will take care of the preloading some
      * flashcard when the user is using the flashcard for the
      * first time | Once they delete them. They will be not showed again
      */
@@ -186,10 +186,15 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    /**
+     * On the click of the search button this method
+     * will call the WordSeach activity and pass
+     * the Map =  which is a map with key =  topic and value = list of FlashCard objects
+     * @param view used in android to interact with the UI
+     */
     public void search(View view){
         Intent intent = new Intent(this, WordSearch.class);
         intent.putExtra("MAP", (Serializable) flashCardMap);
         startActivity(intent);
     }
-
 }
