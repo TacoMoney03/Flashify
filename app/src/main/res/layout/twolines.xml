@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="#FFFCFC"
+        android:textColor="#cfd8dc"
         android:textSize="16sp"
         android:textStyle="italic" />
 
@@ -18,6 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textColor="#673AB7"
+        android:textColor="#546e7a"
         android:textSize="12sp" />
 </LinearLayout>
