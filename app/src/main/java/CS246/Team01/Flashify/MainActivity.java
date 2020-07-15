@@ -80,8 +80,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences settings = getSharedPreferences(myPrefsFile, 0);
 
+        //Set conditions when the app is firs loaded
         if (settings.getBoolean("MY_FIRST_TIME", true)) {
-            //the app is being launched for first time, do something
+
+            //preload flashcards
             preloadFlashCards();
 
              // record the fact that the app has been started at least once
