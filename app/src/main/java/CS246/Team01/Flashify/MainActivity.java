@@ -188,13 +188,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void search(View view){
-        System.out.println("Made it into search call from main");
         Intent intent = new Intent(this, WordSearch.class);
-        System.out.println("made the intent");
         intent.putExtra("map", (Serializable) flashCardMap);
-        System.out.println("put the map into the intent");
         startActivity(intent);
-        System.out.println("started the search activity");
     }
 
 }

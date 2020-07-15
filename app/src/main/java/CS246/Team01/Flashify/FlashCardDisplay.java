@@ -98,6 +98,7 @@ public class FlashCardDisplay extends AppCompatActivity {
         frontView = findViewById(R.id.frontTextView);
         backView = findViewById(R.id.backTextView);
 
+        System.out.println(index);
         // set the flashcard front to show "front" and the flashcard back to show "back"
         frontView.setText(topicFlashcards.get(index).get_front());
         backView.setText(topicFlashcards.get(index).get_back());

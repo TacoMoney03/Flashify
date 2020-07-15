@@ -17,10 +17,13 @@ import java.util.Map;
 public class WordSearch extends AppCompatActivity {
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private SimpleAdapter sa;
+    private ArrayList<FlashCard> flashCardListFromFile;
     private ArrayList<FlashCard> flashCardResult;
+    private String searchWord;
+    private int index;
+    private int itemClicked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("Started onCreate in WordSearch");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_search);
         Intent intent = getIntent();
@@ -33,13 +36,13 @@ public class WordSearch extends AppCompatActivity {
 
                 //Get the object tapped by the user
                 Object topicItem = ((ListView)findViewById(R.id.resultList)).getItemAtPosition(position);
-
+                itemClicked = position;
                 String result = ((HashMap<String,String>)topicItem).get("result");
                 String type = ((HashMap<String,String>)topicItem).get("type");
 
                 // Call the new topic activity creating function passing the element tapped
                 assert type != null;
-                processSelection(result, type);
+                processSelection(result, type, index);
             }
         });
     }
@@ -53,7 +56,7 @@ public class WordSearch extends AppCompatActivity {
         flashCardResult = new ArrayList<>();
 
         EditText keyWord = findViewById(R.id.searchWord);
-        String searchWord = keyWord.getText().toString();
+        searchWord = keyWord.getText().toString();
 
         // Go trough all the keys(topics) and values(flashcard lists)
         for (Map.Entry<String, ArrayList<FlashCard>> entry : flashCardMap.entrySet()) {
@@ -100,7 +103,7 @@ public class WordSearch extends AppCompatActivity {
         ((ListView)findViewById(R.id.resultList)).setAdapter(sa);
     }
 
-    public void processSelection(String result, String type){
+    public void processSelection(String result, String type, int index){
         if(type.equals("Topic")){
             // Get the flashcards list corresponding to the topic
             ArrayList<FlashCard> topicFlashcards = flashCardMap.get(result);
@@ -128,9 +131,11 @@ public class WordSearch extends AppCompatActivity {
                     String front = flashCardResult.get(i).get_front();
 
                     if(front.equals(result)){
-                        // Pass the strings into the intent
-                        intent.putExtra("FRONT", front);
-                        intent.putExtra("BACK", flashCardResult.get(i).get_back());
+                        FileHelper fileHelper = new FileHelper(this);
+                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).get_topic());
+                        index = findIndexOfList(itemClicked);
+                        intent.putExtra("mylist", flashCardListFromFile);
+                        intent.putExtra("INDEX", index);
                         startActivity(intent);
                     }
                 }
@@ -142,12 +147,36 @@ public class WordSearch extends AppCompatActivity {
 
                     if(back.equals(result)){
                         // Pass the strings into the intent
-                        intent.putExtra("FRONT", flashCardResult.get(i).get_front());
-                        intent.putExtra("BACK", back);
+//                        intent.putExtra("FRONT", flashCardResult.get(i).get_front());
+//                        intent.putExtra("BACK", back);
+//                        intent.putExtra("INDEX", index);
+                        FileHelper fileHelper = new FileHelper(this);
+                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).get_topic());
+                        index = findIndexOfList(itemClicked);
+                        intent.putExtra("mylist", flashCardListFromFile);
+                        intent.putExtra("INDEX", index);
                         startActivity(intent);
                     }
                 }
             }
         }
+    }
+
+    private int findIndexOfList(int clickedIndex) {
+        //Get the Map
+        int tempIndex = 0;
+        FlashCard flashCard = flashCardResult.get(clickedIndex);
+        System.out.println(flashCard);
+
+        //loopThrought the array and find the inex
+
+        for (int i = 0; i < flashCardListFromFile.size(); ++i) {
+            if (flashCard.get_topic().equals(flashCardListFromFile.get(i).get_topic()) &&
+                    flashCard.get_front().equals(flashCardListFromFile.get(i).get_front()) &&
+                    flashCard.get_back().equals(flashCardListFromFile.get(i).get_back())) {
+                tempIndex = i;
+            }
+        }
+        return tempIndex;
     }
 }
