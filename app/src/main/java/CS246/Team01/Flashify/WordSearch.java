@@ -146,10 +146,6 @@ public class WordSearch extends AppCompatActivity {
                     String back = flashCardResult.get(i).get_back();
 
                     if(back.equals(result)){
-                        // Pass the strings into the intent
-//                        intent.putExtra("FRONT", flashCardResult.get(i).get_front());
-//                        intent.putExtra("BACK", back);
-//                        intent.putExtra("INDEX", index);
                         FileHelper fileHelper = new FileHelper(this);
                         flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).get_topic());
                         index = findIndexOfList(itemClicked);
