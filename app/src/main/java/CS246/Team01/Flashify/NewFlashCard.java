@@ -24,7 +24,7 @@ public class NewFlashCard extends AppCompatActivity {
     /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
     pass a reference to the map in main without a pointer. This has room for improvement*/
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
-    Boolean _edit;
+    Boolean edit;
     public ArrayList<FlashCard> topicFlashcards;
     private int index;
     private String saveMessage;
@@ -47,11 +47,11 @@ public class NewFlashCard extends AppCompatActivity {
         String _topic = intent.getStringExtra("TOPIC");
         String _front = intent.getStringExtra("FRONT");
         String _back = intent.getStringExtra("BACK");
-        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("MYLIST");
         index = getIntent().getIntExtra("INDEX", 0);
         //this value comes as TRUE from FlashCardDisplay and FALSE from MainActivity
         //this lets us change the behavior of this page if we are editing versus creating a new card from scratch
-        _edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
+        edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
         //set the EditText's with the topic, front, and back values received from FlashCardDisplay
         topicText.setText(_topic);
         frontText.setText(_front);
@@ -114,7 +114,7 @@ public class NewFlashCard extends AppCompatActivity {
         */
         if (flashCardList.containsKey(topic)){
             //if _edit is true aka we are coming from FlashCardDisplay and want to edit the current flashcard
-            if (_edit) {
+            if (edit) {
                 //Converting the List into a Map
                 Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
                 topicFlashcards.set(index, flashCard);

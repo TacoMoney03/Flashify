@@ -34,7 +34,7 @@ public class FlashCardDisplay extends AppCompatActivity {
         index = getIntent().getIntExtra("INDEX", 0);
 
         //Getting the list
-        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("mylist");
+        topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("MYLIST");
 
         //Call setCardText method to display the appropriate content on the flashcard
         setCardText();
@@ -81,7 +81,7 @@ public class FlashCardDisplay extends AppCompatActivity {
         FileHelper fileHelper = new FileHelper(this);
 
         //Load the flashcards from the file
-        topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).get_topic());
+        topicFlashcards = fileHelper.getFlashCardMap().get(topicFlashcards.get(0).getTopic());
 
         //Call setCardText again to get the right values
         setCardText();
@@ -100,8 +100,8 @@ public class FlashCardDisplay extends AppCompatActivity {
 
         System.out.println(index);
         // set the flashcard front to show "front" and the flashcard back to show "back"
-        frontView.setText(topicFlashcards.get(index).get_front());
-        backView.setText(topicFlashcards.get(index).get_back());
+        frontView.setText(topicFlashcards.get(index).getFront());
+        backView.setText(topicFlashcards.get(index).getBack());
     }
 
     // The .xml file is modified to use this view.
@@ -184,7 +184,7 @@ public class FlashCardDisplay extends AppCompatActivity {
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
 
             //remove the whole object
-            fileData.remove(topicFlashcards.get(0).get_topic());
+            fileData.remove(topicFlashcards.get(0).getTopic());
 
             //Update by saving to the file
             fileHelper.saveToFile(fileData);
@@ -202,7 +202,7 @@ public class FlashCardDisplay extends AppCompatActivity {
             Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
 
             //Replace the object to the update one
-            fileData.replace(topicFlashcards.get(0).get_topic(), topicFlashcards);
+            fileData.replace(topicFlashcards.get(0).getTopic(), topicFlashcards);
             fileHelper.saveToFile(fileData);
             //Call the goNextCard so that something else shows up after the card is deleted
             goNextCard(view);
@@ -213,16 +213,16 @@ public class FlashCardDisplay extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void editCard(View view) {
         //get the topic, front, and back values
-        String _topic = topicFlashcards.get(index).get_topic();
-        String _front = topicFlashcards.get(index).get_front();
-        String _back = topicFlashcards.get(index).get_back();
+        String _topic = topicFlashcards.get(index).getTopic();
+        String _front = topicFlashcards.get(index).getFront();
+        String _back = topicFlashcards.get(index).getBack();
         //create a new intent
         Intent intent = new Intent(this, NewFlashCard.class);
         //put the topic, front, back, current list, and index in the intent
         intent.putExtra("TOPIC", _topic);
         intent.putExtra("FRONT", _front);
         intent.putExtra("BACK", _back);
-        intent.putExtra("mylist", topicFlashcards);
+        intent.putExtra("MYLIST", topicFlashcards);
         intent.putExtra("INDEX", index);
         //put a boolean with value true into the intent
         //this is used on the NewFlashCard class to tell whether we come to that page from MainActivity or FlashCardDisplay

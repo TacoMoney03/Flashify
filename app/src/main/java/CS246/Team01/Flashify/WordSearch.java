@@ -27,7 +27,7 @@ public class WordSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_search);
         Intent intent = getIntent();
-        flashCardMap = (HashMap<String, ArrayList<FlashCard>>)intent.getSerializableExtra("map");
+        flashCardMap = (HashMap<String, ArrayList<FlashCard>>)intent.getSerializableExtra("MAP");
 
         // Set the click listener for the list view
         ((ListView)findViewById(R.id.resultList)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -37,8 +37,8 @@ public class WordSearch extends AppCompatActivity {
                 //Get the object tapped by the user
                 Object topicItem = ((ListView)findViewById(R.id.resultList)).getItemAtPosition(position);
                 itemClicked = position;
-                String result = ((HashMap<String,String>)topicItem).get("result");
-                String type = ((HashMap<String,String>)topicItem).get("type");
+                String result = ((HashMap<String,String>)topicItem).get("RESULT");
+                String type = ((HashMap<String,String>)topicItem).get("TYPE");
 
                 // Call the new topic activity creating function passing the element tapped
                 assert type != null;
@@ -65,20 +65,20 @@ public class WordSearch extends AppCompatActivity {
 
             if(topic.contains(searchWord)){
                 item = new HashMap<>();
-                item.put( "result", topic);
-                item.put( "type", "Topic");
+                item.put( "RESULT", topic);
+                item.put( "TYPE", "Topic");
                 list.add( item );
             }
 
             // Get the front text from all the flashcards in the list and place in the new fronts list.
             for(int i = 0; i < flashcards.size(); i++){
-                String front = flashcards.get(i).get_front();
-                String back = flashcards.get(i).get_back();
+                String front = flashcards.get(i).getFront();
+                String back = flashcards.get(i).getBack();
 
                 if(front.contains(searchWord)){
                     item = new HashMap<>();
-                    item.put( "result", front);
-                    item.put( "type", "Flashcard Front");
+                    item.put( "RESULT", front);
+                    item.put( "TYPE", "Flashcard Front");
                     list.add( item );
 
                     flashCardResult.add(flashcards.get(i));
@@ -86,8 +86,8 @@ public class WordSearch extends AppCompatActivity {
 
                 if(back.contains(searchWord)){
                     item = new HashMap<>();
-                    item.put( "result", back);
-                    item.put( "type", "Flashcard Back");
+                    item.put( "RESULT", back);
+                    item.put( "TYPE", "Flashcard Back");
                     list.add( item );
 
                     flashCardResult.add(flashcards.get(i));
@@ -97,7 +97,7 @@ public class WordSearch extends AppCompatActivity {
 
         sa = new SimpleAdapter(this, list,
                 R.layout.twolines,
-                new String[] { "result","type" },
+                new String[] { "RESULT","TYPE" },
                 new int[] {R.id.result, R.id.type});
 
         ((ListView)findViewById(R.id.resultList)).setAdapter(sa);
@@ -128,13 +128,13 @@ public class WordSearch extends AppCompatActivity {
                 // Search in all fronts found in the flashcards from the
                 // list obtained from the search
                 for(int i = 0; i < flashCardResult.size(); i++){
-                    String front = flashCardResult.get(i).get_front();
+                    String front = flashCardResult.get(i).getFront();
 
                     if(front.equals(result)){
                         FileHelper fileHelper = new FileHelper(this);
-                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).get_topic());
+                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).getTopic());
                         index = findIndexOfList(itemClicked);
-                        intent.putExtra("mylist", flashCardListFromFile);
+                        intent.putExtra("MYLIST", flashCardListFromFile);
                         intent.putExtra("INDEX", index);
                         startActivity(intent);
                     }
@@ -143,13 +143,13 @@ public class WordSearch extends AppCompatActivity {
                 // Search in all fronts found in the flashcards from the
                 // list obtained from the search
                 for(int i = 0; i < flashCardResult.size(); i++){
-                    String back = flashCardResult.get(i).get_back();
+                    String back = flashCardResult.get(i).getBack();
 
                     if(back.equals(result)){
                         FileHelper fileHelper = new FileHelper(this);
-                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).get_topic());
+                        flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).getTopic());
                         index = findIndexOfList(itemClicked);
-                        intent.putExtra("mylist", flashCardListFromFile);
+                        intent.putExtra("MYLIST", flashCardListFromFile);
                         intent.putExtra("INDEX", index);
                         startActivity(intent);
                     }
@@ -167,9 +167,9 @@ public class WordSearch extends AppCompatActivity {
         //loopThrought the array and find the inex
 
         for (int i = 0; i < flashCardListFromFile.size(); ++i) {
-            if (flashCard.get_topic().equals(flashCardListFromFile.get(i).get_topic()) &&
-                    flashCard.get_front().equals(flashCardListFromFile.get(i).get_front()) &&
-                    flashCard.get_back().equals(flashCardListFromFile.get(i).get_back())) {
+            if (flashCard.getTopic().equals(flashCardListFromFile.get(i).getTopic()) &&
+                    flashCard.getFront().equals(flashCardListFromFile.get(i).getFront()) &&
+                    flashCard.getBack().equals(flashCardListFromFile.get(i).getBack())) {
                 tempIndex = i;
             }
         }

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView menu;
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private ArrayList<FlashCard> topicFlashcards = new ArrayList<>();
-    final String PREFS_NAME = "MyPrefsFile";
+    final String myPrefsFile = "MyPrefsFile";
 
 
     /**
@@ -79,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setContent() {
         setContentView(R.layout.activity_main);
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (settings.getBoolean("my_first_time", true)) {
+        SharedPreferences settings = getSharedPreferences(myPrefsFile, 0);
+        if (settings.getBoolean("MY_FIRST_TIME", true)) {
             //the app is being launched for first time, do something
             preloadFlashCards();
             // first time task
 
             // record the fact that the app has been started at least once
-            settings.edit().putBoolean("my_first_time", false).apply();
+            settings.edit().putBoolean("MY_FIRST_TIME", false).apply();
         }
 
         ArrayList<String> topicsMenu;
@@ -189,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void search(View view){
         Intent intent = new Intent(this, WordSearch.class);
-        intent.putExtra("map", (Serializable) flashCardMap);
+        intent.putExtra("MAP", (Serializable) flashCardMap);
         startActivity(intent);
     }
 

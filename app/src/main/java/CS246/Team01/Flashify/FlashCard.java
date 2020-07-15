@@ -1,38 +1,42 @@
 
-//This class will contain the actual Flash Card
 package CS246.Team01.Flashify;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import java.io.Serializable;
 
-// The FlashCard class needs to implement "Parcelable" so the main activity can pass it
-// to TopicActivity
+/*This class will contain the actual Flash Card. Created with a Topic which will allow the app
+to sort it, and a front and back of a card.
+ The FlashCard class needs to implement "Parcelable" so the main activity can pass it
+ to TopicActivity
+ Parcelable is used to serialize a class so its properties can be transferred from one activity
+ to another. Serialization is a mechanism of converting state of object into byte stream. To use it,
+ Java class should be implemented using parcelable interface.*/
 public class FlashCard implements Parcelable, Serializable {
-    private String _topic;
-    private String _front;
-    private  String _back;
+    private String topic;
+    private String front;
+    private  String back;
 
     FlashCard(String topic, String front, String back) {
-        _topic = topic;
-        _front = front;
-        _back = back;
+        this.topic = topic;
+        this.front = front;
+        this.back = back;
     }
 
     private FlashCard(Parcel in) {
-        _topic = in.readString();
-        _front = in.readString();
-        _back = in.readString();
+        topic = in.readString();
+        front = in.readString();
+        back = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(_topic);
-        dest.writeString(_front);
-        dest.writeString(_back);
+        dest.writeString(topic);
+        dest.writeString(front);
+        dest.writeString(back);
     }
 
-    // Parcelable class implementation
+    // Parcelable class implementation. This is done automatically by Android.
     @Override
     public int describeContents() {
         return 0;
@@ -50,22 +54,22 @@ public class FlashCard implements Parcelable, Serializable {
         }
     };
 
-    String get_topic() {
-        return _topic;
+    String getTopic() {
+        return topic;
     }
 
-    String get_front() {
-        return _front;
+    String getFront() {
+        return front;
     }
 
-    String get_back() {
-        return _back;
+    String getBack() {
+        return back;
     }
 
     // Converts the Flash Card to text.
     @Override
     public String toString(){
-        return "[" + _topic + "," + _front + "," + _back + "]";
+        return "[" + topic + "," + front + "," + back + "]";
     }
 
 
