@@ -17,12 +17,21 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- *
+ * This class handles the ability to add a new
+ * flashcard into the map -  This activity is
+ * started in Main or in when a flashcard is called
+ * to be edit in FlashCardDisplay
  */
 public class NewFlashCard extends AppCompatActivity {
 
-    /*This map will contain a List of all flash cards by category. I did this because I didn't know how to
-    pass a reference to the map in main without a pointer. This has room for improvement*/
+    /***
+     * flashCardList = Map with key = topic and value = list of FlashCards
+     * edit = A boolean to control if the activity is been called from a edit functionality
+     * topicFlashCards = A list containing the topics
+     * index = Track the index inside the list
+     * saveMessage = A successful saving Message
+     * fileHelper = a FileHelper variable to manipulate the data in the file
+     */
     private static Map<String, ArrayList<FlashCard>> flashCardList = new HashMap<>();
     private Boolean edit;
     private ArrayList<FlashCard> topicFlashcards;
@@ -30,46 +39,56 @@ public class NewFlashCard extends AppCompatActivity {
     private String saveMessage;
     private FileHelper fileHelper;
 
+    /**
+     * On create set the content for this activity
+     * @param savedInstanceState default from the android Studio
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flash_card);
 
         final Button saveButton = findViewById(R.id.saveButton);
+
         //instantiate FileHelper with context this for newFlashCard and null for the rest of the parameters
         fileHelper = new FileHelper(this);
+
         //get the text from the EditText's and assign to variables
         EditText topicText = findViewById(R.id.topicText);
         EditText frontText = findViewById(R.id.frontText);
         EditText backText = findViewById(R.id.backText);
+
         //get values from intent
         Intent intent = getIntent();
-        //These only come from FlashCardDisplay
         String _topic = intent.getStringExtra("TOPIC");
         String _front = intent.getStringExtra("FRONT");
         String _back = intent.getStringExtra("BACK");
+
+        //Get the intent of MYLIST
         topicFlashcards =  (ArrayList<FlashCard>) getIntent().getSerializableExtra("MYLIST");
+
+        //get teh index if no index is passed it is set to zero
         index = getIntent().getIntExtra("INDEX", 0);
+
         //this value comes as TRUE from FlashCardDisplay and FALSE from MainActivity
-        //this lets us change the behavior of this page if we are editing versus creating a new card from scratch
         edit = Objects.requireNonNull(intent.getExtras()).getBoolean("EDIT");
+
         //set the EditText's with the topic, front, and back values received from FlashCardDisplay
         topicText.setText(_topic);
         frontText.setText(_front);
         backText.setText(_back);
+
         //if the topic text equals the current topic, enable the save button, otherwise leave it disabled
-            if(topicText.getText().toString().equals(_topic)){
-                saveButton.setEnabled(false);
-            } saveButton.setEnabled(true);
+        if(topicText.getText().toString().equals(_topic)){
+            saveButton.setEnabled(false);
+        } saveButton.setEnabled(true);
 
-    /* Every Flash Card must have a topic in order to be saved. This activity will begin with a
-    disabled SAVE button. Once there is a topic, the SAVE button will be enabled.
-     */
-
-
-        /* A TextWatcher is created in onCreate. This text watcher will listen to the
-        * text input and will enable or disable the save button if the text input has
-        * text or not. */
+        /**
+         * A TextWatcher is created in onCreate. This text watcher will listen to the
+         * text input and will enable or disable the save button if the text input has
+         * text or not.
+         * --Sove overrrided methods from the implementation
+         */
         topicText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -81,25 +100,30 @@ public class NewFlashCard extends AppCompatActivity {
                 }
             }
 
+            /**
+             * Default implementation to allow the onTextChange to work
+             */
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            /**
+             * Default implementation to allow the onTextChange to work
+             */
             @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 
 
-    /* This method will be called in the create flash Card screen when the user taps on the SAVE
-    button and will store the user's data input in the device as a Json file*/
+    /**
+     * This method will be called in the create flash Card screen
+     * when the user taps on the SAVE button and will store the
+     * user's data input in the device as a Json file
+     * */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void saveFlashCard(View view){
+
+        // Get the Information from the front view and assign them
         EditText topicText = findViewById(R.id.topicText);
         String topic = topicText.getText().toString();
         EditText frontText = findViewById(R.id.frontText);
@@ -107,6 +131,7 @@ public class NewFlashCard extends AppCompatActivity {
         EditText backText = findViewById(R.id.backText);
         String back = backText.getText().toString();
 
+        //Create new FlashCard
         FlashCard flashCard = new FlashCard(topic, front, back);
 
          /* If there is already a list with the topic then the flash Card will be added to that list,
@@ -114,27 +139,32 @@ public class NewFlashCard extends AppCompatActivity {
         will be added to the new list
         */
         if (flashCardList.containsKey(topic)){
-            //if _edit is true aka we are coming from FlashCardDisplay and want to edit the current flashcard
+
+            //if _edit is true we are coming from FlashCardDisplay and want to edit the current flashcard
             if (edit) {
+
                 //Converting the List into a Map
                 Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
                 topicFlashcards.set(index, flashCard);
+
                 //Replace the object to the update one
                 fileData.replace(topic, topicFlashcards);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Flashcard Updated!";
-            }
-            //else we are creating a brand new flashcard
-            else {
+            } else { //else we are creating a brand new flashcard
+
                 Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
                 fileHelper.saveToFile(flashCardList);
                 saveMessage = "Saved Successfully!";
             }
-        }
-        else{
+        } else { //In case we are not coming from edit and it is a new topic to be created
+
+            //Set the content of the new flashcard
             ArrayList<FlashCard> list = new ArrayList<>();
             flashCardList.put(topic, list);
             Objects.requireNonNull(flashCardList.get(topic)).add(flashCard);
+
+            //save it to the file
             fileHelper.saveToFile(flashCardList);
             saveMessage = "Saved Successfully!";
         }
@@ -150,7 +180,10 @@ public class NewFlashCard extends AppCompatActivity {
         backText.setText("");
     }
 
-    //Map is received from the Main Activity
+    /**
+     * This method is used in main to updated changes in the list.
+     * @param list Take the map with the key = topic and Value = List of FlashCards
+     */
     static void setFlashCardList(Map<String, ArrayList<FlashCard>> list){
         flashCardList = list;
     }
