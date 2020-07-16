@@ -78,10 +78,13 @@ public class NewFlashCard extends AppCompatActivity {
         frontText.setText(_front);
         backText.setText(_back);
 
+        //if edit is true, meaning we are here to edit the card, not create a new one, and
         //if the topic text equals the current topic, enable the save button, otherwise leave it disabled
-        if(topicText.getText().toString().equals(_topic)){
-            saveButton.setEnabled(false);
-        } saveButton.setEnabled(true);
+        if(edit){
+            if(topicText.getText().toString().equals(_topic)){
+                saveButton.setEnabled(true);
+            }
+        }
 
         /**
          * A TextWatcher is created in onCreate. This text watcher will listen to the
