@@ -7,14 +7,19 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * This class performs the searching activity once it
+ * is called. It takes a string and search for words
+ * that matches the users' input
+ */
 public class WordSearch extends AppCompatActivity {
+
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private SimpleAdapter sa;
     private ArrayList<FlashCard> flashCardListFromFile;
@@ -22,6 +27,8 @@ public class WordSearch extends AppCompatActivity {
     private String searchWord;
     private int index;
     private int itemClicked;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +54,10 @@ public class WordSearch extends AppCompatActivity {
         });
     }
 
-    /* This method will compare the word input by the user and iterate through the map comparing it
-    with the map's content. If it finds a match it will display it on a clickable list*/
+    /**
+     *  This method will compare the word input by the user and iterate
+     *  through the map comparing it with the map's content. If it finds
+     *  a match it will display it on a clickable list*/
     public void searchWord(View view){
         //Create an Array
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
@@ -103,6 +112,12 @@ public class WordSearch extends AppCompatActivity {
         ((ListView)findViewById(R.id.resultList)).setAdapter(sa);
     }
 
+    /**
+     *
+     * @param result
+     * @param type
+     * @param index
+     */
     public void processSelection(String result, String type, int index){
         if(type.equals("Topic")){
             // Get the flashcards list corresponding to the topic
@@ -122,11 +137,12 @@ public class WordSearch extends AppCompatActivity {
             // Create the intent
             Intent intent = new Intent (this, FlashCardDisplay.class);
 
-            // Search for the flashcard where the received front or back is.
-            // Is the result a flashcard front?
+            /* Search for the flashcard where the received front or back is.
+               Is the result a flashcard front? */
             if(type.equals("Flashcard Front")){
-                // Search in all fronts found in the flashcards from the
-                // list obtained from the search
+
+                /* Search in all fronts found in the flashcards from the
+                   list obtained from the search */
                 for(int i = 0; i < flashCardResult.size(); i++){
                     String front = flashCardResult.get(i).getFront();
 
@@ -139,9 +155,8 @@ public class WordSearch extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
-            } else{
-                // Search in all fronts found in the flashcards from the
-                // list obtained from the search
+            } else { //Search in all fronts found in the flashcards from the list obtained from the search
+
                 for(int i = 0; i < flashCardResult.size(); i++){
                     String back = flashCardResult.get(i).getBack();
 
@@ -158,21 +173,31 @@ public class WordSearch extends AppCompatActivity {
         }
     }
 
+    /**
+     * This Method find the method uses the index of the
+     * clicked item to find the index of that item in the
+     * the original list of flashcards
+     * @param clickedIndex = The index of the item clicked
+     * @return
+     */
     private int findIndexOfList(int clickedIndex) {
-        //Get the Map
-        int tempIndex = 0;
-        FlashCard flashCard = flashCardResult.get(clickedIndex);
-        System.out.println(flashCard);
 
-        //loopThrought the array and find the inex
+        //Index to be return the item in the original list
+        int listItemIndex = 0;
 
+        //Create a temp flashcard for comparation
+        FlashCard tempflashCard = flashCardResult.get(clickedIndex);
+
+        //loop throught the array and find the index in the actual list
         for (int i = 0; i < flashCardListFromFile.size(); ++i) {
-            if (flashCard.getTopic().equals(flashCardListFromFile.get(i).getTopic()) &&
-                    flashCard.getFront().equals(flashCardListFromFile.get(i).getFront()) &&
-                    flashCard.getBack().equals(flashCardListFromFile.get(i).getBack())) {
-                tempIndex = i;
+            if (tempflashCard.getTopic().equals(flashCardListFromFile.get(i).getTopic()) &&
+                    tempflashCard.getFront().equals(flashCardListFromFile.get(i).getFront()) &&
+                    tempflashCard.getBack().equals(flashCardListFromFile.get(i).getBack())) {
+                listItemIndex= i;
             }
         }
-        return tempIndex;
+
+        //Return the actual index of the item in the original list
+        return listItemIndex;
     }
 }
