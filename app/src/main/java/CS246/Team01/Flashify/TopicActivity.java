@@ -8,64 +8,103 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This class set the activity for the Topic
+ * FlashCards, which is showed before the the
+ * user is looping through the flashcards in
+ * FlashCardDisplay
+ */
 public class TopicActivity extends AppCompatActivity {
-    public ListView frontsList;
-    public ArrayList<FlashCard> topicFlashcards;
-    public String topic;
 
+    /**
+     * frontsList = The content for the user
+     * topicFlashCards = A list of FlashCards
+     * topic = A specific topic
+     */
+    private ListView frontsList;
+    private ArrayList<FlashCard> topicFlashcards;
+    private String topic;
+
+    /**
+     * Get the infomation passed this activity and
+     * set the content of this activity
+     * @param savedInstanceState default from android studio
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         //Get the topic activity intent so we can get the topic string and the FlashCard ArrayList
         Intent intent = getIntent();
-        topic = intent.getStringExtra("TOPIC"); //getStringExtra will search for the "TOPIC" key and get its value. In this case the topic the user selected.
+        topic = intent.getStringExtra("TOPIC");
         topicFlashcards = intent.getParcelableArrayListExtra("LIST");
 
         //Call the content setting method
         setContent();
     }
 
+    /**
+     * Manager the back bottom on the top
+     * @return true so it can be set
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
-    /*
-    * When the activity is restated we reset the content
-    * with updated information
-    */
+    /**
+     * Update the content onRestart of the activity
+     */
     @Override
     public void onRestart(){
         super.onRestart();
         updateContent();
     }
 
+    /**
+     * Update the content onPostResume of the activity
+     */
     @Override
     protected void onPostResume() {
         super.onPostResume();
         updateContent();
     }
 
+    /**
+     * This Method instantiate and users the FileHelper
+     * to manager any update made in the file by other
+     * activity, that way the content of the page can
+     * be updated
+     */
     private void updateContent() {
         //Read from the file and get the updated map
         FileHelper fileHelper = new FileHelper(this);
         Map<String, ArrayList<FlashCard>> fileData = fileHelper.getFlashCardMap();
+
         //get the correct object using the key=topic
         topicFlashcards = fileData.get(topic);
+
         //Update the content
         setContent();
     }
-    public void setContent() {
+
+    /**
+     * This method is used to set the content of
+     * the activity - When called it displays a
+     * list of flashcards
+     */
+    private void setContent() {
         TextView topicTitle = findViewById(R.id.topicText);
-        topicTitle.setText(topic); //Display the value from the previously selected "TOPIC" key
+
+        //Display the value from the previously selected "TOPIC" key
+        topicTitle.setText(topic);
 
         // Create a list with all the flashcard fronts.
         ArrayList<String> fronts = new ArrayList<>();
@@ -89,19 +128,28 @@ public class TopicActivity extends AppCompatActivity {
         });
     }
 
-    // method to call next activity to view flashcards
-    public void viewCard(String front, String back, int index) {
+    /**
+     * This methods call the FlashCardDisplay once
+     * the user clicks on an specific flashCard
+     * @param front = front of the flash card
+     * @param back = back of the flashcard
+     * @param index = index location of this flashcard
+     */
+    private void viewCard(String front, String back, int index) {
+
         // Create the intent
         Intent intent = new Intent (this, FlashCardDisplay.class);
+
         //pass the list
         intent.putExtra("MYLIST", topicFlashcards);
+
         // Pass the strings into the intent
         intent.putExtra("FRONT", front);
         intent.putExtra("BACK", back);
+
         //Get the proper Index and pass it
         intent.putExtra("INDEX", index);
+
         startActivity(intent);
     }
-
-
 }
