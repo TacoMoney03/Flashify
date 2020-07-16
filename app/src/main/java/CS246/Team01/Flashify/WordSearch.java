@@ -33,6 +33,7 @@ public class WordSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_search);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         flashCardMap = (HashMap<String, ArrayList<FlashCard>>)intent.getSerializableExtra("MAP");
 
@@ -52,6 +53,12 @@ public class WordSearch extends AppCompatActivity {
                 processSelection(result, type, index);
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     /**
