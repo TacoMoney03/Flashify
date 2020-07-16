@@ -25,7 +25,6 @@ public class WordSearch extends AppCompatActivity {
     private ArrayList<FlashCard> flashCardListFromFile;
     private ArrayList<FlashCard> flashCardResult;
     private String searchWord;
-    private int index;
     private int itemClicked;
 
 
@@ -50,7 +49,7 @@ public class WordSearch extends AppCompatActivity {
 
                 // Call the new topic activity creating function passing the element tapped
                 assert type != null;
-                processSelection(result, type, index);
+                processSelection(result, type);
             }
         });
     }
@@ -123,9 +122,9 @@ public class WordSearch extends AppCompatActivity {
      *
      * @param result
      * @param type
-     * @param index
      */
-    public void processSelection(String result, String type, int index){
+    public void processSelection(String result, String type){
+        int index;
         if(type.equals("Topic")){
             // Get the flashcards list corresponding to the topic
             ArrayList<FlashCard> topicFlashcards = flashCardMap.get(result);
