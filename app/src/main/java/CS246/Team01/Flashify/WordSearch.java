@@ -192,14 +192,14 @@ public class WordSearch extends AppCompatActivity {
         //Index to be return the item in the original list
         int listItemIndex = 0;
 
-        //Create a temp flashcard for comparation
-        FlashCard tempflashCard = flashCardResult.get(clickedIndex);
+        //Create a temp flashcard for comparing
+        FlashCard tempFlashCard = flashCardResult.get(clickedIndex);
 
-        //loop throught the array and find the index in the actual list
+        //loop through the array and find the index in the actual list
         for (int i = 0; i < flashCardListFromFile.size(); ++i) {
-            if (tempflashCard.getTopic().equals(flashCardListFromFile.get(i).getTopic()) &&
-                    tempflashCard.getFront().equals(flashCardListFromFile.get(i).getFront()) &&
-                    tempflashCard.getBack().equals(flashCardListFromFile.get(i).getBack())) {
+            if (tempFlashCard.getTopic().equals(flashCardListFromFile.get(i).getTopic()) &&
+                    tempFlashCard.getFront().equals(flashCardListFromFile.get(i).getFront()) &&
+                    tempFlashCard.getBack().equals(flashCardListFromFile.get(i).getBack())) {
                 listItemIndex= i;
             }
         }
