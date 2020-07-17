@@ -62,7 +62,7 @@ public class FlashCardDisplay extends AppCompatActivity {
     /**
      * This method is called whenever the user chooses to navigate Up within
      * your application's activity hierarchy from the action bar.
-     * @return
+     * @return = true
      */
     @Override
     public boolean onSupportNavigateUp() {

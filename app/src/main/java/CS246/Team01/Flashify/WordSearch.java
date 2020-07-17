@@ -20,6 +20,14 @@ import java.util.Map;
  */
 public class WordSearch extends AppCompatActivity {
 
+    /**
+     * flashCardMap = the map containing all the flashcards
+     * sa = adapter for list view
+     * flashCardListFromFile = the list of flashcards from the file
+     * flashCardResult = the list of flashcards returned by the search function
+     * searchWord = the word searched for by the user
+     * itemClicked = int to store the position of the item in the list that was clicked
+     */
     private Map<String, ArrayList<FlashCard>> flashCardMap = new HashMap<>();
     private SimpleAdapter sa;
     private ArrayList<FlashCard> flashCardListFromFile;
@@ -27,13 +35,20 @@ public class WordSearch extends AppCompatActivity {
     private String searchWord;
     private int itemClicked;
 
-
+    /**
+     * Method onCreate is called on creation
+     * sets the main view of the activity
+     * @param savedInstanceState = Default passed on creation
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_search);
+        //enables back button in top left
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //get the intent
         Intent intent = getIntent();
+        //get the map from the intent
         flashCardMap = (HashMap<String, ArrayList<FlashCard>>)intent.getSerializableExtra("MAP");
 
         // Set the click listener for the list view
@@ -43,6 +58,7 @@ public class WordSearch extends AppCompatActivity {
 
                 //Get the object tapped by the user
                 Object topicItem = ((ListView)findViewById(R.id.resultList)).getItemAtPosition(position);
+                //set itemClicked = to the position in the list that was clicked
                 itemClicked = position;
                 String result = ((HashMap<String,String>)topicItem).get("RESULT");
                 String type = ((HashMap<String,String>)topicItem).get("TYPE");
@@ -54,6 +70,11 @@ public class WordSearch extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is called whenever the user chooses to navigate Up within
+     * your application's activity hierarchy from the action bar.
+     * @return = true
+     */
     @Override
     public boolean onSupportNavigateUp() {
         finish();
@@ -120,9 +141,11 @@ public class WordSearch extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param result
-     * @param type
+     * this method allows the user to click on a result from the list returned by the search
+     * if it is a topic, pass the topic data into the intent and pass it to TopicActivity
+     * if it is a front or back of the flashcard, pass the info needed to FlashCardDisplay
+     * @param result = the result of the search
+     * @param type = the type the result was, either front, back, or topic
      */
     public void processSelection(String result, String type){
         int index;
@@ -154,9 +177,14 @@ public class WordSearch extends AppCompatActivity {
                     String front = flashCardResult.get(i).getFront();
 
                     if(front.equals(result)){
+                        //Instantiate FileHelper
                         FileHelper fileHelper = new FileHelper(this);
+                        //set the list of flashcards = to the associated topic's flashcard list from the search result
                         flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).getTopic());
+                        //use findIndexOfList function to get the index of the card in the updated list of flashcards
+                        //this allows you to go straight to the proper card, not just the start of the list of cards
                         index = findIndexOfList(itemClicked);
+                        //pass the list and index as an intent to FlashCardDisplay
                         intent.putExtra("MYLIST", flashCardListFromFile);
                         intent.putExtra("INDEX", index);
                         startActivity(intent);
@@ -168,9 +196,14 @@ public class WordSearch extends AppCompatActivity {
                     String back = flashCardResult.get(i).getBack();
 
                     if(back.equals(result)){
+                        //Instantiate FileHelper
                         FileHelper fileHelper = new FileHelper(this);
+                        //set the list of flashcards = to the associated topic's flashcard list from the search result
                         flashCardListFromFile = fileHelper.getFlashCardMap().get(flashCardResult.get(0).getTopic());
+                        //use findIndexOfList function to get the index of the card in the updated list of flashcards
+                        //this allows you to go straight to the proper card, not just the start of the list of cards
                         index = findIndexOfList(itemClicked);
+                        //pass the list and index as an intent to FlashCardDisplay
                         intent.putExtra("MYLIST", flashCardListFromFile);
                         intent.putExtra("INDEX", index);
                         startActivity(intent);
@@ -185,7 +218,7 @@ public class WordSearch extends AppCompatActivity {
      * clicked item to find the index of that item in the
      * the original list of flashcards
      * @param clickedIndex = The index of the item clicked
-     * @return
+     * @return listItemIndex = the index of the item in the list from the file
      */
     private int findIndexOfList(int clickedIndex) {
 
