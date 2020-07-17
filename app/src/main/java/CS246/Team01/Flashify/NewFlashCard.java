@@ -90,7 +90,7 @@ public class NewFlashCard extends AppCompatActivity {
          * A TextWatcher is created in onCreate. This text watcher will listen to the
          * text input and will enable or disable the save button if the text input has
          * text or not.
-         * --Sove overrrided methods from the implementation
+         * --Save overrided methods from the implementation
          */
         topicText.addTextChangedListener(new TextWatcher() {
             @Override

@@ -30,7 +30,7 @@ public class TopicActivity extends AppCompatActivity {
     private String topic;
 
     /**
-     * Get the infomation passed this activity and
+     * Get the information passed this activity and
      * set the content of this activity
      * @param savedInstanceState default from android studio
      */
@@ -50,7 +50,7 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     /**
-     * Manager the back bottom on the top
+     * Manage the back bottom on the top
      * @return true so it can be set
      */
     @Override
@@ -78,7 +78,7 @@ public class TopicActivity extends AppCompatActivity {
     }
 
     /**
-     * This Method instantiate and users the FileHelper
+     * This Method instantiate and uses the FileHelper
      * to manager any update made in the file by other
      * activity, that way the content of the page can
      * be updated

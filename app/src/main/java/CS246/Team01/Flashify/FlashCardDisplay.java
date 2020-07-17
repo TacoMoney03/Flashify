@@ -34,7 +34,7 @@ public class FlashCardDisplay extends AppCompatActivity {
     private int index = 0;
 
     /**
-     * Method onCreat is called on creation to set
+     * Method onCreate is called on creation to set
      * the view of the flashcard and call the proper methods
      * @param savedInstanceState = Default passed on the creation
      */
@@ -112,7 +112,7 @@ public class FlashCardDisplay extends AppCompatActivity {
     /**
      * Set the view by changing the content
      * that interacts with the user this
-     * method is called everytime there is a need
+     * method is called every time there is a need
      * to display or the user flashcards
      */
     private void setCardText() {
@@ -269,9 +269,9 @@ public class FlashCardDisplay extends AppCompatActivity {
 
     /**
      *  This method allows the user to edit the flash card
-     *  by creating an intent and invoking the newflashcard
+     *  by creating an intent and invoking the newFlashCard
      *  activity. However, this methods let the the activity
-     *  now that it is coming from a edit so it does not create
+     *  know that it is coming from a edit so it does not create
      *  a new flashcard instead of editing the existing one.
      */
     @RequiresApi(api = Build.VERSION_CODES.N)

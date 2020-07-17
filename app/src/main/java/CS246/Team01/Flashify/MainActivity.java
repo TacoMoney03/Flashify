@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * This MainActivity Class will be responsible for setting
- * the start content o the application. It will read the necessary
+ * the start content of the application. It will read the necessary
  * data from a file inside the device and call the proper methods according
  * with the user interaction
  */
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * PrealoadFlashCards will take care of the preloading some
+     * PreloadFlashCards will take care of the preloading some
      * flashcard when the user is using the flashcard for the
      * first time | Once they delete them. They will be not showed again
      */
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * On the click of the search button this method
-     * will call the WordSeach activity and pass
+     * will call the WordSearch activity and pass
      * the Map =  which is a map with key =  topic and value = list of FlashCard objects
      * @param view used in android to interact with the UI
      */

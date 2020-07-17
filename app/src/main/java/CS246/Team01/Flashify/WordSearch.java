@@ -63,7 +63,8 @@ public class WordSearch extends AppCompatActivity {
     /**
      *  This method will compare the word input by the user and iterate
      *  through the map comparing it with the map's content. If it finds
-     *  a match it will display it on a clickable list*/
+     *  a match it will display it on a clickable list
+     */
     public void searchWord(View view){
         //Create an Array
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
